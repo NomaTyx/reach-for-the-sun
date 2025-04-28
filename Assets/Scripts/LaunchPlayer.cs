@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class LaunchPlayer : MonoBehaviour
 {
-    public void LaunchPlayerUpwards()
+    Rigidbody rb;
+    private void Start()
     {
+        rb = GetComponent<Rigidbody>();
+    }
 
+    public void OnLaunchPlayerUpwards()
+    {
+        Debug.Log("hi");
     }
 }
