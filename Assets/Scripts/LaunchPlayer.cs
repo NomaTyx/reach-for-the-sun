@@ -12,6 +12,7 @@ public class LaunchPlayer : MonoBehaviour
 
     public void OnLaunchPlayerUpwards()
     {
-        Debug.Log("hi");
+        Debug.Log("Added Force.");
+        rb.AddForce(new Vector3(10, 1000, 10), ForceMode.Impulse);
     }
 }
