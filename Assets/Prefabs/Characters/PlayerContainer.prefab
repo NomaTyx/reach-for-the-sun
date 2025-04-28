@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 1341018675542625951}
   - component: {fileID: 360616135365652479}
   - component: {fileID: 3201994707075999131}
-  - component: {fileID: 3944969214738934977}
+  - component: {fileID: 4169645963660757610}
   - component: {fileID: 1792337961905272123}
   m_Layer: 0
   m_Name: PlayerCharacter
@@ -289,7 +289,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3613567641014311022, guid: 705f6aea5ee01614aba8400112a9c897, type: 3}
---- !u!114 &3944969214738934977
+--- !u!114 &4169645963660757610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4802243369597645984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ca9443a4cb62844a913330659b85d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 312efcc8ba1e9bd41ba75d376d86782f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1792337961905272123
