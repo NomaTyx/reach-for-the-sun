@@ -12,11 +12,10 @@ public class CameraMovement : MonoBehaviour
         cam = GetComponent<CinemachineFreeLook>();
     }
 
-    void FixedUpdate()
+    void LerpCamera()
     {
-        Debug.Log(cam.GetRig(0));
-        Debug.Log(cam.GetRig(1));
-        Debug.Log(cam.GetRig(2));
-        Debug.Log(cam.GetRig(3));
+        
     }
+
+
 }

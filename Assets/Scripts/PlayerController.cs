@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public void OnLaunchPlayerUpwards()
     {
         Debug.Log("Added Force.");
-        rb.AddForce(new Vector3(10, 1000, 10), ForceMode.Impulse);
+        rb.AddForce(new Vector3(10, 100, 10), ForceMode.Impulse);
     }
 
     protected virtual void Update()
