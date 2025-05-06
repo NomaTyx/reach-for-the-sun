@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -12,8 +13,8 @@ public class Health : MonoBehaviour
     public float Missing => _maxHealth - _currentHealth;
     public bool IsAlive => _currentHealth > 0;
 
-    public Event OnDamage;
-    public Event OnDeath;
+    public event Action OnDamage;
+    public event Action OnDeath;
 
     /// <summary>
     /// damage method
@@ -23,6 +24,12 @@ public class Health : MonoBehaviour
     {
         _currentHealth -= info.Amount;
 
+        OnDamage?.Invoke();
+
+        if(_currentHealth <= 0)
+        {
+            OnDeath?.Invoke();
+        }
     }
 
     /// <summary>
@@ -33,7 +40,7 @@ public class Health : MonoBehaviour
 
     }
 
-    [ContextMenu("Damage test 10%")]
+    [ContextMenu("Damage test")]
     public void DamageTest()
     {
         DamageInfo info = new DamageInfo(_maxHealth * (_damageTestPercent / 100), gameObject, gameObject);
