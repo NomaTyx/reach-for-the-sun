@@ -13,6 +13,7 @@ public class Health : MonoBehaviour
     public float Missing => _maxHealth - _currentHealth;
     public bool IsAlive => _currentHealth > 0;
 
+    //use Action keyword when initializing events, it lets you skip a bunch of unnecessary stuff if *all* you want to do is invoke event -> subscriber goes off
     public event Action OnDamage;
     public event Action OnDeath;
 

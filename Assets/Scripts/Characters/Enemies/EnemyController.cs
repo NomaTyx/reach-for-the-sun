@@ -10,12 +10,20 @@ public class EnemyController : MonoBehaviour
         _health.OnDamage += DamageBehavior;
     }
 
+    private void OnDestroy()
+    {
+        _health.OnDamage -= DamageBehavior;
+    }
+
     // Update is called once per frame
     void Update()
     {
         
     }
 
+    /// <summary>
+    /// the behavior that happens when an enemy takes damage
+    /// </summary>
     void DamageBehavior()
     {
         Debug.Log("penis");
