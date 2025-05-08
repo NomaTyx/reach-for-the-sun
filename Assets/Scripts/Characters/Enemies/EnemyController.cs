@@ -1,14 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyWeapon))]
 public class EnemyController : MonoBehaviour
 {
     private Health _health;
+    private EnemyWeapon _weapon;
     [SerializeField] private float tempVar_AttackCooldown = 1f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _weapon = GetComponent<EnemyWeapon>();
         _health = GetComponent<Health>();
+
         _health.OnDamage += DamageBehavior;
 
         StartCoroutine(AggressiveState());
