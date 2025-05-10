@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
 
     [field: Header("Componenents")]
 
+    [SerializeField] private bool _turnPlayer = true;
+    [SerializeField] private float _yWeight = 3;
+
     protected Vector2 MoveInput { get; set; }
 
     Rigidbody rb;
@@ -30,12 +33,19 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 playerVelocity = rb.linearVelocity;
         rb.linearVelocity = Vector3.zero;
+
+        Vector3 newDirection = new Vector3(cameraTransform.forward.x, rb.linearVelocity.y, cameraTransform.forward.z);
+
         //possibly change this to just set the velocity equal to the value, who knows
-        rb.AddForce(new Vector3(cameraTransform.forward.x, rb.linearVelocity.y, cameraTransform.forward.z) * DashForce, ForceMode.Impulse);
+        rb.AddForce(newDirection * DashForce, ForceMode.Impulse);
+        transform.LookAt(transform.position + newDirection);
     }
 
     protected virtual void Update()
     {
-        
+        if (_turnPlayer)
+        {
+            transform.LookAt(transform.position + new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * _yWeight, rb.linearVelocity.z));
+        }
     }
 }

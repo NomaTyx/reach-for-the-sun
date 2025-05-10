@@ -9,7 +9,6 @@ public class PlayerTurner : MonoBehaviour
     [SerializeField] private int _yWeight = 3;
 
     private Rigidbody rb;
-    private Quaternion rotation;
 
     private void Start()
     {
