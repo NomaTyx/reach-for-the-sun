@@ -14,7 +14,7 @@ public class Health : MonoBehaviour
     public bool IsAlive => _currentHealth > 0;
 
     //use Action keyword when initializing events, it lets you skip a bunch of unnecessary stuff if *all* you want to do is invoke event -> subscriber goes off
-    public event Action OnDamage;
+    public event Action<GameObject> OnDamage;
     public event Action OnDeath;
 
     /// <summary>
@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
     {
         _currentHealth -= info.Amount;
 
-        OnDamage?.Invoke();
+        OnDamage?.Invoke(gameObject);
 
         if(_currentHealth <= 0)
         {

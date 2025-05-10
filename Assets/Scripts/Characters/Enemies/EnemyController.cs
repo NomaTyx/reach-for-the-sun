@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
     /// <summary>
     /// the behavior that happens when an enemy takes damage
     /// </summary>
-    void DamageBehavior()
+    void DamageBehavior(GameObject damagedObject)
     {
         Debug.Log("penis");
     }

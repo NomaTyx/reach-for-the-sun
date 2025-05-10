@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -16,8 +16,8 @@ namespace GameEvents
         [SerializeField] private bool _doOnce = true;
         [field: SerializeField] public bool Done { get; set; }
 
-        public UnityEvent<GameObject> OnEnter;
-        public UnityEvent<GameObject> OnExit;
+        public event Action<GameObject> OnEnter;
+        public event Action<GameObject> OnExit;
 
 
         // ensure box collider is added, and is a trigger
