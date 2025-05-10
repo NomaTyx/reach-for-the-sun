@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
 
         //possibly change this to just set the velocity equal to the value, who knows
         rb.AddForce(newDirection * DashForce, ForceMode.Impulse);
-        transform.LookAt(transform.position + newDirection);
     }
 
     protected virtual void Update()
