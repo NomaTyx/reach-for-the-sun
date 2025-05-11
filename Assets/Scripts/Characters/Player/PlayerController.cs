@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,10 +18,13 @@ public class PlayerController : MonoBehaviour
 
     protected Vector2 MoveInput { get; set; }
 
-    Rigidbody rb;
+    private Rigidbody rb;
+    private CinemachineCamera cam;
+    private bool _isDashing;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        cam = GetComponent<CinemachineCamera>();
     }
 
     public void OnLaunchPlayerUpwards()
@@ -42,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (_turnPlayer)
+        if (_turnPlayer && !_isDashing)
         {
             transform.LookAt(transform.position + new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * _yWeight, rb.linearVelocity.z));
         }
