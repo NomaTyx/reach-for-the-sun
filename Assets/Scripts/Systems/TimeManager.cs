@@ -41,7 +41,7 @@ public class TimeManager : MonoBehaviour
         float previousTimeScale = Time.timeScale;
         Time.timeScale = 0;
 
-        yield return new WaitForSecondsRealtime(durationMilliseconds);
+        yield return new WaitForSecondsRealtime(durationMilliseconds / 1000);
 
         if(!_gamePaused)
         {
