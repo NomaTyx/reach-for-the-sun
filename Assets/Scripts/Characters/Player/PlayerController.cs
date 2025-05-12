@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.Cinemachine;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -27,13 +28,14 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rb;
     private CinemachineCamera _cam;
-    private Collider _collider;
+    private SphereCollider _collider;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _cam = GetComponent<CinemachineCamera>();
-        _collider = GetComponent<CapsuleCollider>();
+        _collider = GetComponent<SphereCollider>();
+        _collider.radius = _bounceRange;
     }
 
     public void OnLaunchPlayerUpwards()
@@ -64,16 +66,21 @@ public class PlayerController : MonoBehaviour
 
         foreach(Collider c in Physics.OverlapSphere(transform.position, 10))
         {
-            Debug.Log("hi");
             Health hitHealth = c.GetComponent<Health>();
             if (hitHealth == null) continue;
+            hitHealth.Damage(new DamageInfo(hitHealth.Current, this.gameObject, hitHealth.gameObject));
 
             numOfEnemies++;
         }
 
+        //later on i will factor in the player's x and y velocity
+        Vector3 prevVelocity = _rb.linearVelocity;
+        _rb.linearVelocity = Vector3.zero;
+
         //add more complex logic potentially
         _rb.AddForce(Vector3.up * (_bounceForce + numOfEnemies), ForceMode.Impulse);
-        TimeManager.Instance.HitStop(1000);
+        TimeManager.Instance.BulletTime(1);
+        TimeManager.Instance.HitStop(250);
     }
 
     private void OnTriggerEnter(Collider other)

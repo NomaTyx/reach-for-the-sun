@@ -9,14 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1341018675542625951}
-  - component: {fileID: 360616135365652479}
-  - component: {fileID: 3201994707075999131}
   - component: {fileID: 4169645963660757610}
-  - component: {fileID: 1792337961905272123}
   - component: {fileID: 2678187021128506908}
-  - component: {fileID: 4211119033799916612}
+  - component: {fileID: 3201994707075999131}
   - component: {fileID: 2223995165095986649}
-  m_Layer: 0
+  - component: {fileID: 360616135365652479}
+  - component: {fileID: 1792337961905272123}
+  m_Layer: 6
   m_Name: PlayerCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -39,6 +38,86 @@ Transform:
   - {fileID: 7762402404154534590}
   m_Father: {fileID: 8367166054331363272}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4169645963660757610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4802243369597645984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312efcc8ba1e9bd41ba75d376d86782f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CursorMode>k__BackingField: 1
+  <LookInCameraDirection>k__BackingField: 0
+  _dashForce: 100
+  _launchForce: 100
+  _bounceRange: 10
+  _bounceForce: 100
+  _bounceBulletTimeModifier: 0.1
+  cameraTransform: {fileID: 8659822033452909527}
+  _turnPlayer: 1
+  _yWeight: 3
+--- !u!114 &2678187021128506908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4802243369597645984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a9d1428d2e5bc4c8f2bbd6b371ce68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 1
+  _currentHealth: 1
+  _damageTestPercent: 10
+--- !u!64 &3201994707075999131
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4802243369597645984}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3613567641014311022, guid: 705f6aea5ee01614aba8400112a9c897, type: 3}
+--- !u!135 &2223995165095986649
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4802243369597645984}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 127
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &360616135365652479
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -66,49 +145,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!64 &3201994707075999131
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4802243369597645984}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3613567641014311022, guid: 705f6aea5ee01614aba8400112a9c897, type: 3}
---- !u!114 &4169645963660757610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4802243369597645984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 312efcc8ba1e9bd41ba75d376d86782f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <CursorMode>k__BackingField: 1
-  <LookInCameraDirection>k__BackingField: 0
-  _dashForce: 100
-  _launchForce: 100
-  _bounceRange: 10
-  _bounceForce: 100
-  cameraTransform: {fileID: 8659822033452909527}
-  _turnPlayer: 1
-  _yWeight: 3
 --- !u!114 &1792337961905272123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,65 +175,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &2678187021128506908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4802243369597645984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15a9d1428d2e5bc4c8f2bbd6b371ce68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 1
-  _currentHealth: 1
-  _damageTestPercent: 10
---- !u!136 &4211119033799916612
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4802243369597645984}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.82
-  m_Height: 4.58
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &2223995165095986649
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4802243369597645984}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5643471563168313099
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScanRecursively: 1
   SuppressInputWhileBlending: 1
-  IgnoreTimeScale: 0
+  IgnoreTimeScale: 1
   m_ControllerManager:
     Controllers:
     - Name: Look Orbit X
@@ -538,6 +515,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 705f6aea5ee01614aba8400112a9c897, type: 3}
       propertyPath: m_Name
       value: MainCharacterModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 705f6aea5ee01614aba8400112a9c897, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
