@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [Header("Bouncing Off Enemies")]
     [SerializeField] private float _bounceRange = 10;
     [SerializeField] private float _bounceForce = 100;
+    [SerializeField] private float _bounceBulletTimeModifier = 0.1f;
 
     [SerializeField] private Transform cameraTransform;
 
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private CinemachineCamera _cam;
     private Collider _collider;
-    private bool _isDashing;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// look for every enemy within bouncing range and deal damage to it. also propel with additional force.
+    /// look for every enemy within bouncing range and deal damage to it. also propel with additional force per enemy
     /// </summary>
     //TODO: make this only check the enemy layer
     public void OnBounce()
@@ -72,21 +73,33 @@ public class PlayerController : MonoBehaviour
 
         //add more complex logic potentially
         _rb.AddForce(Vector3.up * (_bounceForce + numOfEnemies), ForceMode.Impulse);
+        TimeManager.Instance.HitStop(1000);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        TimeManager.Instance.BulletTime(_bounceBulletTimeModifier);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        TimeManager.Instance.BulletTime(1);
     }
 
     protected virtual void Update()
     {
-        if (_turnPlayer && !_isDashing)
+        if (_turnPlayer)
         {
             transform.LookAt(transform.position + new Vector3(_rb.linearVelocity.x, _rb.linearVelocity.y * _yWeight, _rb.linearVelocity.z));
         }
     }
 
+    /// <summary>
+    /// placeholder coroutine for when i end up properly implementing dashing
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Dash()
     {
-        while (_isDashing)
-        {
-            yield return null;
-        }
+        yield return null;
     }
 }
