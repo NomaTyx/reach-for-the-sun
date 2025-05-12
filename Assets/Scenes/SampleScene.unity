@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 128476667}
   - component: {fileID: 128476668}
+  - component: {fileID: 128476669}
   m_Layer: 0
   m_Name: GameStateManager
   m_TagString: Untagged
@@ -161,6 +162,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfa2ba3185986d046967bd3d5225903f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &128476669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128476666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420474731f53fa243917790a8a59ec3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &705507993
@@ -507,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5616459643930109451, guid: fe0d0c3b951753744b29e3fc642025bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.05735
+      value: 36.89
       objectReference: {fileID: 0}
     - target: {fileID: 5616459643930109451, guid: fe0d0c3b951753744b29e3fc642025bc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -515,7 +528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5616459643930109451, guid: fe0d0c3b951753744b29e3fc642025bc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.04073
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 5616459643930109451, guid: fe0d0c3b951753744b29e3fc642025bc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -709,6 +722,14 @@ PrefabInstance:
     - target: {fileID: 3776033956447191325, guid: 000aa3dc98609db41bf10bb3d3b554db, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4169645963660757610, guid: 000aa3dc98609db41bf10bb3d3b554db, type: 3}
+      propertyPath: _bounceForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4169645963660757610, guid: 000aa3dc98609db41bf10bb3d3b554db, type: 3}
+      propertyPath: _bounceRange
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4290186274941576485, guid: 000aa3dc98609db41bf10bb3d3b554db, type: 3}
       propertyPath: m_LocalPosition.x

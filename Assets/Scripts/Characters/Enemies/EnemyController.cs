@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
         _health = GetComponent<Health>();
 
         _health.OnDamage += DamageBehavior;
+        _health.OnDeath += DeathBehavior;
 
         StartCoroutine(AggressiveState());
     }
@@ -36,6 +37,13 @@ public class EnemyController : MonoBehaviour
     void DamageBehavior(GameObject damagedObject)
     {
         Debug.Log("penis");
+    }
+
+    void DeathBehavior(GameObject deadObject)
+    {
+        Debug.Log("Ding dong the enemy is dead");
+        //for some fucking reason you need to SPECIFY to look for inactive components. cry.
+        GetComponentInChildren<EnemyShatterer>(true).gameObject.SetActive(true);
     }
 
     void Attack()
