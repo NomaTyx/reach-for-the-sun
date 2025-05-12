@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -7,8 +8,13 @@ public class PlayerController : MonoBehaviour
     [field: SerializeField] protected CursorLockMode CursorMode { get; set; } = CursorLockMode.Locked;
     // make character look in Camera direction instead of MoveDirection
     [field: SerializeField] protected bool LookInCameraDirection { get; set; }
-    [field: SerializeField] private float DashForce = 100;
-    [field: SerializeField] private float LaunchForce = 100;
+    [field: SerializeField] private float _dashForce = 100;
+    [field: SerializeField] private float _launchForce = 100;
+
+    [Header("Bouncing Off Enemies")]
+    [SerializeField] private float _bounceRange = 10;
+    [SerializeField] private float _bounceForce = 100;
+
     [SerializeField] private Transform cameraTransform;
 
     [field: Header("Componenents")]
@@ -18,37 +24,69 @@ public class PlayerController : MonoBehaviour
 
     protected Vector2 MoveInput { get; set; }
 
-    private Rigidbody rb;
-    private CinemachineCamera cam;
+    private Rigidbody _rb;
+    private CinemachineCamera _cam;
+    private Collider _collider;
     private bool _isDashing;
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        cam = GetComponent<CinemachineCamera>();
+        _rb = GetComponent<Rigidbody>();
+        _cam = GetComponent<CinemachineCamera>();
+        _collider = GetComponent<CapsuleCollider>();
     }
 
     public void OnLaunchPlayerUpwards()
     {
         Debug.Log("Added Force.");
-        rb.AddForce(new Vector3(10, LaunchForce, 10), ForceMode.Impulse);
+        _rb.AddForce(new Vector3(10, _launchForce, 10), ForceMode.Impulse);
     }
 
     public void OnDash()
     {
-        Vector3 playerVelocity = rb.linearVelocity;
-        rb.linearVelocity = Vector3.zero;
+        Vector3 playerVelocity = _rb.linearVelocity;
+        _rb.linearVelocity = Vector3.zero;
 
-        Vector3 newDirection = new Vector3(cameraTransform.forward.x, rb.linearVelocity.y, cameraTransform.forward.z);
+        Vector3 newDirection = new Vector3(cameraTransform.forward.x, _rb.linearVelocity.y, cameraTransform.forward.z);
 
         //possibly change this to just set the velocity equal to the value, who knows
-        rb.AddForce(newDirection * DashForce, ForceMode.Impulse);
+        _rb.AddForce(newDirection * _dashForce, ForceMode.Impulse);
+    }
+
+    /// <summary>
+    /// look for every enemy within bouncing range and deal damage to it. also propel with additional force.
+    /// </summary>
+    //TODO: make this only check the enemy layer
+    public void OnBounce()
+    {
+        //give extra force for each enemy i guess?
+        float numOfEnemies = 0;
+
+        foreach(Collider c in Physics.OverlapSphere(transform.position, 10))
+        {
+            Debug.Log("hi");
+            Health hitHealth = c.GetComponent<Health>();
+            if (hitHealth == null) continue;
+
+            numOfEnemies++;
+        }
+
+        //add more complex logic potentially
+        _rb.AddForce(Vector3.up * (_bounceForce + numOfEnemies), ForceMode.Impulse);
     }
 
     protected virtual void Update()
     {
         if (_turnPlayer && !_isDashing)
         {
-            transform.LookAt(transform.position + new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * _yWeight, rb.linearVelocity.z));
+            transform.LookAt(transform.position + new Vector3(_rb.linearVelocity.x, _rb.linearVelocity.y * _yWeight, _rb.linearVelocity.z));
+        }
+    }
+
+    private IEnumerator Dash()
+    {
+        while (_isDashing)
+        {
+            yield return null;
         }
     }
 }
