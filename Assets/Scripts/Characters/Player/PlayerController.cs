@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     [field: SerializeField] protected CursorLockMode CursorMode { get; set; } = CursorLockMode.Locked;
     // make character look in Camera direction instead of MoveDirection
     [field: SerializeField] protected bool LookInCameraDirection { get; set; }
-    [field: SerializeField] private float _dashForce = 100;
     [field: SerializeField] private float _launchForce = 100;
 
     [Header("Bouncing Off Enemies")]
@@ -17,10 +16,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _bounceForce = 100;
     [SerializeField] private float _bounceBulletTimeModifier = 0.1f;
 
-    [SerializeField] private Transform cameraTransform;
+    [Header("Dashing")]
+    [SerializeField] private float _dashTime = 2.5f;
+    [field: SerializeField] private float _dashForce = 100;
 
     [field: Header("Componenents")]
+    [SerializeField] private Transform cameraTransform;
 
+    [Header("Player Turning")]
     [SerializeField] private bool _turnPlayer = true;
     [SerializeField] private float _yWeight = 3;
 
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private CinemachineCamera _cam;
     private SphereCollider _collider;
+    private bool _isDashing;
 
     private void Start()
     {
@@ -46,13 +50,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash()
     {
-        Vector3 playerVelocity = _rb.linearVelocity;
-        _rb.linearVelocity = Vector3.zero;
-
-        Vector3 newDirection = new Vector3(cameraTransform.forward.x, _rb.linearVelocity.y, cameraTransform.forward.z);
-
-        //possibly change this to just set the velocity equal to the value, who knows
-        _rb.AddForce(newDirection * _dashForce, ForceMode.Impulse);
+        StartCoroutine(Dash(_dashTime));
     }
 
     /// <summary>
@@ -101,12 +99,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// placeholder coroutine for when i end up properly implementing dashing
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator Dash()
+    //todo: make dash FASTER than normal movement!
+    private IEnumerator Dash(float dashTime)
     {
-        yield return null;
+        Vector3 playerVelocity = _rb.linearVelocity;
+        Vector3 newDirection = cameraTransform.forward;
+        _rb.linearVelocity = Vector3.zero;
+        float dashStartTime = Time.time;
+
+        _isDashing = true;
+        _rb.useGravity = false;
+
+        while (_isDashing)
+        {
+            _rb.linearVelocity = newDirection * _dashForce;
+            Debug.Log("dashing");
+            if(Time.time >= dashStartTime + dashTime)
+            {
+                StopDash();
+            }
+            yield return null;
+        }
+    }
+
+    //i need this method because there will be multiple things that stop the dash.
+    private void StopDash()
+    {
+        _isDashing = false;
+        _rb.useGravity = true;
     }
 }

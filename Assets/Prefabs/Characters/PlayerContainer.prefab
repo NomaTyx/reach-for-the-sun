@@ -52,11 +52,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CursorMode>k__BackingField: 1
   <LookInCameraDirection>k__BackingField: 0
-  _dashForce: 100
   _launchForce: 100
-  _bounceRange: 10
-  _bounceForce: 100
+  _bounceRange: 5
+  _bounceForce: 10
   _bounceBulletTimeModifier: 0.1
+  _dashTime: 2.5
+  _dashForce: 100
   cameraTransform: {fileID: 8659822033452909527}
   _turnPlayer: 1
   _yWeight: 3

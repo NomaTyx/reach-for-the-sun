@@ -25,6 +25,7 @@ public class TimeManager : MonoBehaviour
 
     public void BulletTime(float modifier)
     {
+        //perhaps make this lerp?
         Time.timeScale = modifier;
     }
 
