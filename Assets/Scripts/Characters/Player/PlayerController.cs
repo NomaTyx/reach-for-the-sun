@@ -15,10 +15,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _bounceRange = 10;
     [SerializeField] private float _bounceForce = 100;
     [SerializeField] private float _bounceBulletTimeModifier = 0.1f;
+    [SerializeField] private float _bounceCooldown;
 
     [Header("Dashing")]
     [SerializeField] private float _dashTime = 2.5f;
-    [field: SerializeField] private float _dashForce = 100;
+    [SerializeField] private float _dashForce = 100;
+    [SerializeField] private float _dashCooldown;
 
     [field: Header("Componenents")]
     [SerializeField] private Transform cameraTransform;
@@ -29,21 +31,28 @@ public class PlayerController : MonoBehaviour
 
     protected Vector2 MoveInput { get; set; }
 
+    //player state trackers and cooldowns
+    private bool _isDashing;
+
+    //components
     private Rigidbody _rb;
     private CinemachineCamera _cam;
-    private SphereCollider _collider;
-    private bool _isDashing;
+    private SphereCollider _bounceCollider;
+    private CapsuleCollider _dashCollider;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _cam = GetComponent<CinemachineCamera>();
-        _collider = GetComponent<SphereCollider>();
-        _collider.radius = _bounceRange;
+        _bounceCollider = GetComponent<SphereCollider>();
+        _dashCollider = GetComponent<CapsuleCollider>();
+
+        _bounceCollider.radius = _bounceRange;
 
         Cursor.lockState = CursorMode;
     }
 
+    //placeholder method
     public void OnLaunchPlayerUpwards()
     {
         Debug.Log("Added Force.");
@@ -61,7 +70,8 @@ public class PlayerController : MonoBehaviour
     //TODO: make this only check the enemy layer
     public void OnBounce()
     {
-        StopDash();
+        if (_isDashing) return;
+        //StopDash();
 
         //give extra force for each enemy i guess?
         float numOfEnemies = 0;
@@ -87,7 +97,19 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        TimeManager.Instance.BulletTime(_bounceBulletTimeModifier);
+        if (_isDashing)
+        {
+            Health hitHealth = other.GetComponent<Health>();
+            if(hitHealth)
+            {
+                hitHealth.Damage(new DamageInfo(hitHealth.Current, this.gameObject, hitHealth.gameObject));
+            }
+            //TODO: add hitstop method here
+        }
+        else
+        {
+            TimeManager.Instance.BulletTime(_bounceBulletTimeModifier);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -111,6 +133,9 @@ public class PlayerController : MonoBehaviour
         _rb.linearVelocity = Vector3.zero;
         float dashStartTime = Time.time;
 
+        _dashCollider.enabled = true;
+        _bounceCollider.enabled = false;
+
         _isDashing = true;
         _rb.useGravity = false;
 
@@ -131,5 +156,7 @@ public class PlayerController : MonoBehaviour
     {
         _isDashing = false;
         _rb.useGravity = true;
+        _dashCollider.enabled = false;
+        _bounceCollider.enabled = true;
     }
 }

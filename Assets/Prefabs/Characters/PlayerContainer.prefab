@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2678187021128506908}
   - component: {fileID: 3201994707075999131}
   - component: {fileID: 2223995165095986649}
+  - component: {fileID: 2479180231693054164}
   - component: {fileID: 360616135365652479}
   - component: {fileID: 1792337961905272123}
   m_Layer: 6
@@ -56,8 +57,10 @@ MonoBehaviour:
   _bounceRange: 5
   _bounceForce: 10
   _bounceBulletTimeModifier: 0.1
+  _bounceCooldown: 0
   _dashTime: 2.5
   _dashForce: 100
+  _dashCooldown: 0
   cameraTransform: {fileID: 8659822033452909527}
   _turnPlayer: 1
   _yWeight: 3
@@ -118,6 +121,29 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &2479180231693054164
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4802243369597645984}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 1.6
+  m_Height: 4.93
+  m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &360616135365652479
 Rigidbody:
