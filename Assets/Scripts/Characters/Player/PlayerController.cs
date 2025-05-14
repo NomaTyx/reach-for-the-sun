@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
         _cam = GetComponent<CinemachineCamera>();
         _collider = GetComponent<SphereCollider>();
         _collider.radius = _bounceRange;
+
+        Cursor.lockState = CursorMode;
     }
 
     public void OnLaunchPlayerUpwards()
@@ -59,6 +61,8 @@ public class PlayerController : MonoBehaviour
     //TODO: make this only check the enemy layer
     public void OnBounce()
     {
+        StopDash();
+
         //give extra force for each enemy i guess?
         float numOfEnemies = 0;
 
