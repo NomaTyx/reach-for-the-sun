@@ -22,8 +22,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _dashForce = 100;
     [SerializeField] private float _dashCooldown;
 
+    [Header("Parrying")]
+    [SerializeField] private float _parryRange = 5f;
+    [SerializeField] private float _parryWindow = 0.5f; //seconds not frames
+
     [field: Header("Componenents")]
-    [SerializeField] private Transform cameraTransform;
+    private Transform cameraTransform;
 
     [Header("Player Turning")]
     [SerializeField] private bool _turnPlayer = true;
@@ -36,14 +40,12 @@ public class PlayerController : MonoBehaviour
 
     //components
     private Rigidbody _rb;
-    private CinemachineCamera _cam;
     private SphereCollider _bounceCollider;
     private CapsuleCollider _dashCollider;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _cam = GetComponent<CinemachineCamera>();
         _bounceCollider = GetComponent<SphereCollider>();
         _dashCollider = GetComponent<CapsuleCollider>();
 
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash()
     {
-        StartCoroutine(Dash(_dashTime));
+        StartCoroutine(Dash());
     }
 
     /// <summary>
@@ -95,6 +97,11 @@ public class PlayerController : MonoBehaviour
         TimeManager.Instance.HitStop(250);
     }
 
+    public void OnParry()
+    {
+        StartCoroutine(Parry());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (_isDashing)
@@ -126,7 +133,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //todo: make dash FASTER than normal movement!
-    private IEnumerator Dash(float dashTime)
+    private IEnumerator Dash()
     {
         Vector3 playerVelocity = _rb.linearVelocity;
         Vector3 newDirection = cameraTransform.forward;
@@ -143,12 +150,18 @@ public class PlayerController : MonoBehaviour
         {
             _rb.linearVelocity = newDirection * _dashForce;
             Debug.Log("dashing");
-            if(Time.time >= dashStartTime + dashTime)
+            if(Time.time >= dashStartTime + _dashTime)
             {
                 StopDash();
             }
             yield return null;
         }
+    }
+    
+    private IEnumerator Parry()
+    {
+        //TODO: implement!
+        yield return null;
     }
 
     //i need this method because there will be multiple things that stop the dash.
