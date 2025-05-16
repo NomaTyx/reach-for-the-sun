@@ -11,24 +11,8 @@ public class PlayerController : MonoBehaviour
     [field: SerializeField] protected bool LookInCameraDirection { get; set; }
     [field: SerializeField] private float _launchForce = 100;
 
-    [Header("Bouncing Off Enemies")]
-    [SerializeField] private float _bounceRange = 10;
-    [SerializeField] private float _bounceForce = 100;
-    [SerializeField] private float _bounceBulletTimeModifier = 0.1f;
-    [SerializeField] private float _bounceCooldown;
-
-    [Header("Dashing")]
-    [SerializeField] private float _dashTime = 2.5f;
-    [SerializeField] private float _dashForce = 100;
-    [SerializeField] private float _dashCooldown;
-
-    [Header("Parrying")]
-    [SerializeField] private float _parryRange = 5f;
-    [SerializeField] private float _parryWindow = 0.5f; //seconds not frames
-
     [field: Header("Componenents")]
     private Transform _cameraTransform;
-    private Health _health;
 
     [Header("Player Turning")]
     [SerializeField] private bool _turnPlayer = true;
@@ -36,24 +20,18 @@ public class PlayerController : MonoBehaviour
 
     protected Vector2 MoveInput { get; set; }
 
-    //player state trackers and cooldowns
-    private bool _isDashing;
-
     //components
+    private PlayerCombatActions _combatActions;
+    private PlayerMovement _movement;
     private Rigidbody _rb;
-    private SphereCollider _bounceCollider;
-    private CapsuleCollider _dashCollider;
+    
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
-        _bounceCollider = GetComponent<SphereCollider>();
-        _dashCollider = GetComponent<CapsuleCollider>();
-        _health = GetComponent<Health>();
-
-        _bounceCollider.radius = _bounceRange;
-
         Cursor.lockState = CursorMode;
+        _combatActions = GetComponent<PlayerCombatActions>();
+        _movement = GetComponent<PlayerMovement>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     //placeholder method
@@ -65,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash()
     {
-        StartCoroutine(Dash());
+        StartCoroutine(_combatActions.Dash());
     }
 
     /// <summary>
@@ -74,56 +52,12 @@ public class PlayerController : MonoBehaviour
     //TODO: make this only check the enemy layer
     public void OnBounce()
     {
-        if (_isDashing) return;
-        //StopDash();
-
-        //give extra force for each enemy i guess?
-        float numOfEnemies = 0;
-
-        foreach(Collider c in Physics.OverlapSphere(transform.position, 10))
-        {
-            Health hitHealth = c.GetComponent<Health>();
-            if (hitHealth == null) continue;
-            hitHealth.Damage(new DamageInfo(hitHealth.Current, this.gameObject, hitHealth.gameObject));
-
-            numOfEnemies++;
-        }
-
-        //later on i will factor in the player's x and y velocity
-        Vector3 prevVelocity = _rb.linearVelocity;
-        _rb.linearVelocity = Vector3.zero;
-
-        //add more complex logic potentially
-        _rb.AddForce(Vector3.up * (_bounceForce + numOfEnemies), ForceMode.Impulse);
-        TimeManager.Instance.BulletTime(1);
-        TimeManager.Instance.HitStop(250);
+        _combatActions.Bounce();
     }
 
     public void OnParry()
     {
-        StartCoroutine(Parry());
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (_isDashing)
-        {
-            Health hitHealth = other.GetComponent<Health>();
-            if(hitHealth)
-            {
-                hitHealth.Damage(new DamageInfo(hitHealth.Current, this.gameObject, hitHealth.gameObject));
-            }
-            //TODO: add hitstop method here
-        }
-        else
-        {
-            TimeManager.Instance.BulletTime(_bounceBulletTimeModifier);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        TimeManager.Instance.BulletTime(1);
+        StartCoroutine(_combatActions.Parry());
     }
 
     protected virtual void Update()
@@ -132,46 +66,5 @@ public class PlayerController : MonoBehaviour
         {
             transform.LookAt(transform.position + new Vector3(_rb.linearVelocity.x, _rb.linearVelocity.y * _yWeight, _rb.linearVelocity.z));
         }
-    }
-
-    //todo: make dash FASTER than normal movement!
-    private IEnumerator Dash()
-    {
-        Vector3 playerVelocity = _rb.linearVelocity;
-        Vector3 newDirection = _cameraTransform.forward;
-        _rb.linearVelocity = Vector3.zero;
-        float dashStartTime = Time.time;
-
-        _dashCollider.enabled = true;
-        _bounceCollider.enabled = false;
-
-        _isDashing = true;
-        _rb.useGravity = false;
-
-        while (_isDashing)
-        {
-            _rb.linearVelocity = newDirection * _dashForce;
-            Debug.Log("dashing");
-            if(Time.time >= dashStartTime + _dashTime)
-            {
-                StopDash();
-            }
-            yield return null;
-        }
-    }
-    
-    private IEnumerator Parry()
-    {
-        //TODO: implement!
-        yield return null;
-    }
-
-    //i need this method because there will be multiple things that stop the dash.
-    private void StopDash()
-    {
-        _isDashing = false;
-        _rb.useGravity = true;
-        _dashCollider.enabled = false;
-        _bounceCollider.enabled = true;
     }
 }
