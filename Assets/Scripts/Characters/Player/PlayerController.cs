@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _parryWindow = 0.5f; //seconds not frames
 
     [field: Header("Componenents")]
-    private Transform cameraTransform;
+    private Transform _cameraTransform;
+    private Health _health;
 
     [Header("Player Turning")]
     [SerializeField] private bool _turnPlayer = true;
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _bounceCollider = GetComponent<SphereCollider>();
         _dashCollider = GetComponent<CapsuleCollider>();
+        _health = GetComponent<Health>();
 
         _bounceCollider.radius = _bounceRange;
 
@@ -136,7 +138,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Dash()
     {
         Vector3 playerVelocity = _rb.linearVelocity;
-        Vector3 newDirection = cameraTransform.forward;
+        Vector3 newDirection = _cameraTransform.forward;
         _rb.linearVelocity = Vector3.zero;
         float dashStartTime = Time.time;
 
