@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     private float _speed;
     private Rigidbody _rb;
 
-    public Projectile(GameObject target, float damage, float speed)
+    public void Init(GameObject target, float damage, float speed)
     {
         _target = target;
         _damage = damage;
@@ -17,11 +17,12 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        Debug.Log("thing was created!");
     }
 
     private void Update()
     {
-        //var targetRotation = Quaternion.LookRotation()
+        if (_target == null) return;
         Vector3 targetDirection = _target.transform.position - transform.position;
         targetDirection.y = 0;
         targetDirection.Normalize();
@@ -36,5 +37,7 @@ public class Projectile : MonoBehaviour
         if (!other.TryGetComponent(out Health hitHealth)) return;
 
         hitHealth.Damage(new DamageInfo(_damage, gameObject, other.gameObject));
+
+        Debug.Log("Thing was destroyed!");
     }
 }

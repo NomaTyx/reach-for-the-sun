@@ -1578,7 +1578,7 @@ GameObject:
   - component: {fileID: 3261520411959057166}
   - component: {fileID: 4860243251886690113}
   - component: {fileID: 8050499057784726422}
-  - component: {fileID: 7036403563718514845}
+  - component: {fileID: 4525340840305124592}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -1730,8 +1730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fd0010ab32cf242a4f73a6515fb5d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempVar_AttackCooldown: 1
---- !u!114 &7036403563718514845
+--- !u!114 &4525340840305124592
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1740,9 +1739,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5411153848938941025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d305f0dd7fc50ce4ab8b09311a4255f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a16a29ad8755de4680cb3f97ebfcd0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tempVar_AttackCooldown: 1
+  _projectile: {fileID: 6141719637299156989, guid: 44b62e5b3bea0eb4a9f0c2b7114db758, type: 3}
+  _projectileDamage: 0
+  _projectileSpeed: 0
 --- !u!1 &6303529773787031584
 GameObject:
   m_ObjectHideFlags: 0

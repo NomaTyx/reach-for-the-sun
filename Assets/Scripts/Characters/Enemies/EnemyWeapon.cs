@@ -7,8 +7,6 @@ public class EnemyWeapon : MonoBehaviour
     //of hardcoding it.
     
     [SerializeField] private float tempVar_AttackCooldown = 1f;
-    [SerializeField] private Projectile _projectile; //this might also be useless code if i decide to do the weapon system.
-    [SerializeField] private float _projectileSpeed = 10f;
 
     private float _lastAttackTime;
 
@@ -20,11 +18,13 @@ public class EnemyWeapon : MonoBehaviour
     public void TryAttack(GameObject target, GameObject instigator)
     {
         //TODO: add cooldown logic and stuff like that
-        if (_lastAttackTime > Time.time + tempVar_AttackCooldown)
+        if ( Time.time > _lastAttackTime + tempVar_AttackCooldown)
         {
             Attack(target, instigator);
             _lastAttackTime = Time.time;
         }
+
+        Debug.Log("tried attack");
         
     }
 
