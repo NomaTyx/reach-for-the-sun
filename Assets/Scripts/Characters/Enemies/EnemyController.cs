@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyWeapon))]
 public class EnemyController : MonoBehaviour
 {
     private Health _health;
@@ -11,7 +10,7 @@ public class EnemyController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _weapon = GetComponent<EnemyWeapon>();
+        _weapon = GetComponentInChildren<EnemyWeapon>();
         _health = GetComponent<Health>();
         _target = FindFirstObjectByType<PlayerController>(); //dunno if the enemy should track the player by its Health component but that's what makes sense to me?
 
@@ -51,5 +50,10 @@ public class EnemyController : MonoBehaviour
             
             yield return null;
         }
+    }
+
+    private void Update()
+    {
+        transform.LookAt(_target.transform);
     }
 }

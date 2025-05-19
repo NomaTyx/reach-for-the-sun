@@ -22,7 +22,9 @@ public class Rocket : MonoBehaviour
 
     private void Update()
     {
+        //need to nullcheck because the rocket exists without a target for the first frame it's alive
         if (_target == null) return;
+
         Vector3 targetDirection = _target.transform.position - transform.position;
         targetDirection.Normalize();
         Vector3 target = Vector3.RotateTowards(transform.forward, targetDirection, Time.fixedDeltaTime * 0.3f, 0);

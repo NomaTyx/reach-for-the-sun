@@ -17,7 +17,7 @@ public class EnemyWeapon : MonoBehaviour
 
     public void TryAttack(GameObject target, GameObject instigator)
     {
-        //TODO: add cooldown logic and stuff like that
+        //TODO: add more complex cooldown logic and stuff like that
         if ( Time.time > _lastAttackTime + tempVar_AttackCooldown)
         {
             Attack(target, instigator);
