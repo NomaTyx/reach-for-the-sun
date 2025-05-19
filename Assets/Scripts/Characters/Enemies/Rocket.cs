@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Rocket : MonoBehaviour
 {
     private GameObject _target;
     private float _damage;
@@ -24,7 +24,6 @@ public class Projectile : MonoBehaviour
     {
         if (_target == null) return;
         Vector3 targetDirection = _target.transform.position - transform.position;
-        targetDirection.y = 0;
         targetDirection.Normalize();
         Vector3 target = Vector3.RotateTowards(transform.forward, targetDirection, Time.fixedDeltaTime * 0.3f, 0);
         transform.rotation = Quaternion.LookRotation(target);
