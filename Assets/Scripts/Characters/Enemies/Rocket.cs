@@ -39,6 +39,10 @@ public class Rocket : MonoBehaviour
 
         hitHealth.Damage(new DamageInfo(_damage, gameObject, other.gameObject));
 
+        Destroy(gameObject);
+
+        Debug.Log($"hit {other.name}");
+
         Debug.Log("Thing was destroyed!");
     }
 }
