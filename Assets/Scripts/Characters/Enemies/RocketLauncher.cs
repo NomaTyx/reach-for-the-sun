@@ -9,7 +9,7 @@ public class RocketLauncher : EnemyWeapon
 
     protected override void Attack(GameObject target, GameObject instigator)
     {
-        Projectile proj = Instantiate(_projectile).GetComponent<Projectile>();
+        Rocket proj = Instantiate(_projectile).GetComponent<Rocket>();
         proj.Init(target, _projectileDamage, _projectileSpeed);
     }
 }
