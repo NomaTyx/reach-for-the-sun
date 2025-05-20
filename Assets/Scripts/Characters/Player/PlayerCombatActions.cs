@@ -23,6 +23,7 @@ public class PlayerCombatActions : MonoBehaviour
     private SphereCollider _bounceCollider;
     private CapsuleCollider _dashCollider;
     private Rigidbody _rb;
+    private Health _health;
 
     //player state trackers and cooldowns
     private bool _isDashing;
@@ -31,9 +32,21 @@ public class PlayerCombatActions : MonoBehaviour
     {
         _bounceCollider = GetComponent<SphereCollider>();
         _dashCollider = GetComponent<CapsuleCollider>();
+        _health = GetComponent<Health>();
 
         _bounceCollider.radius = _bounceRange;
         _rb = GetComponent<Rigidbody>();
+
+        _health.OnDamage += DamageBehavior;
+        _health.OnDeath += DeathBehavior;
+
+
+    }
+
+    private void OnDestroy()
+    {
+        _health.OnDamage -= DamageBehavior;
+        _health.OnDeath -= DeathBehavior;
     }
 
     public void Bounce()
@@ -124,5 +137,15 @@ public class PlayerCombatActions : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         TimeManager.Instance.BulletTime(1);
+    }
+
+    private void DamageBehavior(GameObject damagedObj)
+    {
+        Debug.Log("bro took damage");
+    }
+
+    private void DeathBehavior(GameObject deadObj)
+    {
+        Debug.Log("bro died");
     }
 }

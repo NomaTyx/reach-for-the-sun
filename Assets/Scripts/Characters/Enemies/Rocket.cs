@@ -37,7 +37,7 @@ public class Rocket : MonoBehaviour
     {
         if (!other.TryGetComponent(out Health hitHealth)) return;
 
-        hitHealth.Damage(new DamageInfo(_damage, gameObject, other.gameObject));
+        hitHealth.Damage(new DamageInfo(hitHealth.Current, gameObject, other.gameObject));
 
         Destroy(gameObject);
 
