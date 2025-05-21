@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyShatterer : MonoBehaviour
+public class Shatterer : MonoBehaviour
 {
     void OnEnable()
     {

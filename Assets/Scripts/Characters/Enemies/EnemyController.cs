@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
     void DeathBehavior(GameObject deadObject)
     {
         //for some fucking reason you need to SPECIFY to look for inactive components. cry.
-        GetComponentInChildren<EnemyShatterer>(true).gameObject.SetActive(true);
+        GetComponentInChildren<Shatterer>(true).gameObject.SetActive(true);
     }
 
     //i might end up doing some crap with an enemy AI manager that sends instructions to enemies so that i can make them more coordinated
