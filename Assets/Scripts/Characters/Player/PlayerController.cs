@@ -67,4 +67,9 @@ public class PlayerController : MonoBehaviour
             transform.LookAt(transform.position + new Vector3(_rb.linearVelocity.x, _rb.linearVelocity.y * _yWeight, _rb.linearVelocity.z));
         }
     }
+
+    public void OnShatter()
+    {
+        GetComponentInChildren<Shatterer>(true).gameObject.SetActive(true);
+    }
 }

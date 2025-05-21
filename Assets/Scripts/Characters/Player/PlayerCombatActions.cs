@@ -125,6 +125,7 @@ public class PlayerCombatActions : MonoBehaviour
             if (hitHealth)
             {
                 hitHealth.Damage(new DamageInfo(hitHealth.Current, this.gameObject, hitHealth.gameObject));
+                TimeManager.Instance.BulletTime(_bounceBulletTimeModifier);
             }
             //TODO: add hitstop method here
         }

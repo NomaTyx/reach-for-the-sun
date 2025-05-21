@@ -13,7 +13,7 @@ public class Shatterer : MonoBehaviour
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
-            transform.GetChild(i).GetComponent<Rigidbody>().AddExplosionForce(1, transform.position, 1, 0, ForceMode.Impulse);
+            transform.GetChild(i).GetComponent<Rigidbody>().AddExplosionForce(30, transform.position, 1, 0, ForceMode.Impulse);
         }
     }
 }
