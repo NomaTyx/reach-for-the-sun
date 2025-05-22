@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3194943104340857739}
   - component: {fileID: 1479106178109712919}
   - component: {fileID: 8790821955616962827}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65956d6990a8ddb4995ea0028c2a4f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parriedProjectileLifetime: 1
 --- !u!54 &1479106178109712919
 Rigidbody:
   m_ObjectHideFlags: 0
