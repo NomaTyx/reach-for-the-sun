@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnParry()
     {
-        StartCoroutine(_combatActions.Parry());
+        _combatActions.Parry();
     }
 
     protected virtual void Update()
@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //placeholder method just to test shatter method
     public void OnShatter()
     {
         GetComponentInChildren<Shatterer>(true).gameObject.SetActive(true);

@@ -6,7 +6,6 @@ public class PlayerCombatActions : MonoBehaviour
     [Header("Bouncing Off Enemies")]
     [SerializeField] private float _bounceRange = 10;
     [SerializeField] private float _bounceForce = 100;
-    [SerializeField] private float _bounceBulletTimeModifier = 0.1f;
     [SerializeField] private float _bounceCooldown;
 
     [Header("Dashing")]
@@ -16,7 +15,10 @@ public class PlayerCombatActions : MonoBehaviour
 
     [Header("Parrying")]
     [SerializeField] private float _parryRange = 5f;
-    [SerializeField] private float _parryWindow = 0.5f; //seconds not frames
+
+    [Header("Hitstop and bullet time")]
+    [SerializeField] private float _bounceBulletTimeModifier = 0.1f;
+    [SerializeField] private float _dashHitStopDuration = 250f; //milliseconds
 
     //components
     [SerializeField] private Transform _cameraTransform;
@@ -39,8 +41,6 @@ public class PlayerCombatActions : MonoBehaviour
 
         _health.OnDamage += DamageBehavior;
         _health.OnDeath += DeathBehavior;
-
-
     }
 
     private void OnDestroy()
@@ -51,10 +51,14 @@ public class PlayerCombatActions : MonoBehaviour
 
     public void Bounce()
     {
-        if (_isDashing) return;
+        if (_isDashing)
+        {
+            Debug.Log("failed bounce");
+            return;
+        }
         //StopDash();
 
-        //give extra force for each enemy i guess?
+        //give extra force for each enemy i guess? idk this is mostly an idea i can do later
         float numOfEnemies = 0;
 
         foreach (Collider c in Physics.OverlapSphere(transform.position, 10))
@@ -73,7 +77,6 @@ public class PlayerCombatActions : MonoBehaviour
         //add more complex logic potentially
         _rb.AddForce(Vector3.up * (_bounceForce + numOfEnemies), ForceMode.Impulse);
         TimeManager.Instance.BulletTime(1);
-        TimeManager.Instance.HitStop(250);
     }
 
     //todo: make dash FASTER than normal movement!
@@ -111,32 +114,40 @@ public class PlayerCombatActions : MonoBehaviour
         _bounceCollider.enabled = true;
     }
 
-    public IEnumerator Parry()
+    public void Parry()
     {
-        //TODO: implement!
-        yield return null;
+        //check only the projectile layer
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _parryRange);
+
+        foreach (Collider c in colliders) 
+        {
+            
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_isDashing)
+        Health hitHealth = other.GetComponent<Health>();
+        if (hitHealth)
         {
-            Health hitHealth = other.GetComponent<Health>();
-            if (hitHealth)
+            if (_isDashing)
             {
                 hitHealth.Damage(new DamageInfo(hitHealth.Current, this.gameObject, hitHealth.gameObject));
+                TimeManager.Instance.HitStop(_dashHitStopDuration);
+                //TODO: add hitstop method here
+            }
+            else
+            {
                 TimeManager.Instance.BulletTime(_bounceBulletTimeModifier);
             }
-            //TODO: add hitstop method here
         }
-        else
-        {
-            TimeManager.Instance.BulletTime(_bounceBulletTimeModifier);
-        }
+
     }
 
     private void OnTriggerExit(Collider other)
     {
+        if (!other.TryGetComponent<Health>(out Health hitHealth)) return;
+
         TimeManager.Instance.BulletTime(1);
     }
 

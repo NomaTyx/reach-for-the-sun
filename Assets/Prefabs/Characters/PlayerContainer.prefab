@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CursorMode>k__BackingField: 1
   <LookInCameraDirection>k__BackingField: 0
-  _launchForce: 100
+  _launchForce: 10
   _turnPlayer: 1
   _yWeight: 3
 --- !u!114 &7297847466513741557
@@ -127,13 +127,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bounceRange: 10
   _bounceForce: 100
-  _bounceBulletTimeModifier: 0.1
   _bounceCooldown: 0
   _dashTime: 2.5
   _dashForce: 100
   _dashCooldown: 0
   _parryRange: 5
-  _parryWindow: 0.5
+  _bounceBulletTimeModifier: 0.1
+  _dashHitStopDuration: 250
   _cameraTransform: {fileID: 8659822033452909527}
 --- !u!114 &3009999816149160864
 MonoBehaviour:
@@ -194,10 +194,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -218,7 +218,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
