@@ -114,6 +114,7 @@ public class PlayerCombatActions : MonoBehaviour
         _bounceCollider.enabled = true;
     }
 
+    //TODO: implement cooldown logic
     public void Parry()
     {
         //check only the projectile layer
@@ -121,8 +122,15 @@ public class PlayerCombatActions : MonoBehaviour
 
         foreach (Collider c in colliders) 
         {
-            
+            c.TryGetComponent<Rocket>(out Rocket rocket);
+
+            if(rocket != null)
+            {
+                rocket.ParryProjectile();
+            }
         }
+
+        //cooldown logic goes here
     }
 
     private void OnTriggerEnter(Collider other)

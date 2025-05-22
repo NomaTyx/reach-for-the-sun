@@ -51,18 +51,21 @@ public class Rocket : MonoBehaviour
         }
     }
 
-    private void ParryProjectile()
+    public void ParryProjectile()
     {
         GetComponent<Collider>().enabled = false;
         Destroy(gameObject, _parriedProjectileLifetime);
+        Debug.Log("Homie got parried");
         ChangeState(ParriedState());
     }
 
+    //perhaps do something where it gets fired at the original target?
     private IEnumerator ParriedState()
     {
-        while(true)
+        transform.RotateAround(transform.position, transform.up, 180f);
+        while (true)
         {
-            _rb.linearVelocity = transform.forward * _speed;
+            _rb.linearVelocity = transform.forward * _speed * 10;
             yield return null;
         }
     }
