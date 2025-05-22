@@ -45,8 +45,9 @@ public class EnemyController : MonoBehaviour
     {
         //this is (currently!) the default AI behavior, so we're just looping forever
         while (true)
-        {   
-            _weapon.TryAttack(_target.gameObject, gameObject); //should it really be trying to attack every frame? TODO: Reexamine.
+        {
+            if (_target != null)
+                _weapon.TryAttack(_target.gameObject, gameObject); //should it really be trying to attack every frame? TODO: Reexamine.
             
             yield return null;
         }
