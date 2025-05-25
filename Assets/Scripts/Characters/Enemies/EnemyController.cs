@@ -30,7 +30,7 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     void DamageBehavior(GameObject damagedObject)
     {
-        Debug.Log("penis");
+        Debug.Log($"{gameObject.name} took damage");
     }
 
     void DeathBehavior(GameObject deadObject)

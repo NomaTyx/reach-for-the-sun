@@ -61,7 +61,6 @@ public class Rocket : MonoBehaviour
     {
         //Destroy(gameObject, _parriedProjectileLifetime);
         _isParried = true;
-        Debug.Log("Homie got parried");
         ChangeState(ParriedState());
     }
 
@@ -69,7 +68,6 @@ public class Rocket : MonoBehaviour
     {
         _target = _damageInfo.Instigator.gameObject;
         transform.LookAt(_target.transform.position);
-        Debug.Log(_target);
         _damageInfo = new DamageInfo(_damageInfo.Amount, _damageInfo.Instigator, _damageInfo.Instigator);
 
         while (true)
@@ -81,13 +79,7 @@ public class Rocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.TryGetComponent(out Health hitHealth))
-        {
-            Debug.Log(other.gameObject.name);
-            return;
-        }
-
-        Debug.Log("came in contact");
+        if (!other.TryGetComponent(out Health hitHealth)) return;
 
         if (hitHealth.gameObject.TryGetComponent<PlayerController>(out PlayerController player))
         {
@@ -103,7 +95,6 @@ public class Rocket : MonoBehaviour
             if(_isParried) 
             {
                 hitHealth.Damage(_damageInfo);
-                Debug.Log("parried state");
                 Destroy(gameObject);
             }
         }
