@@ -5,17 +5,18 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField] private float _parriedProjectileLifetime = 1f;
     private GameObject _target;
-    private float _damage;
+    private DamageInfo _damageInfo;
     private float _speed;
     private Rigidbody _rb;
 
     private IEnumerator _currentState;
+    private bool _isParried = false;
 
-    public void Init(GameObject target, float damage, float speed)
+    public void Init(GameObject target, DamageInfo damageInfo, float speed)
     {
         _rb = GetComponent<Rigidbody>();
         _target = target;
-        _damage = damage;
+        _damageInfo = damageInfo;
         _speed = speed;
     }
 
@@ -34,48 +35,78 @@ public class Rocket : MonoBehaviour
         StartCoroutine(_currentState);
     }
 
+    private void Move()
+    {
+        Vector3 targetDirection = _target.transform.position - transform.position;
+        targetDirection.Normalize();
+        Vector3 target = Vector3.RotateTowards(transform.forward, targetDirection, Time.fixedDeltaTime * 0.3f, 0);
+        transform.rotation = Quaternion.LookRotation(target);
+        _rb.linearVelocity = transform.forward * _speed;
+    }
+
     private IEnumerator ActiveState()
     {
         //need to nullcheck because the rocket exists without a target for the first frame it's alive
         //yield return null waits til the next frame, by which point it's been initialized. perfect.
         if (_target == null) yield return null;
 
-        while(true)
+        while (true)
         {
-            Vector3 targetDirection = _target.transform.position - transform.position;
-            targetDirection.Normalize();
-            Vector3 target = Vector3.RotateTowards(transform.forward, targetDirection, Time.fixedDeltaTime * 0.3f, 0);
-            transform.rotation = Quaternion.LookRotation(target);
-            _rb.linearVelocity = transform.forward * _speed;
+            Move();
             yield return null;
         }
     }
 
     public void ParryProjectile()
     {
-        GetComponent<Collider>().enabled = false;
-        Destroy(gameObject, _parriedProjectileLifetime);
+        //Destroy(gameObject, _parriedProjectileLifetime);
+        _isParried = true;
         Debug.Log("Homie got parried");
         ChangeState(ParriedState());
     }
 
-    //perhaps do something where it gets fired at the original target?
     private IEnumerator ParriedState()
     {
-        transform.RotateAround(transform.position, transform.up, 180f);
+        _target = _damageInfo.Instigator.gameObject;
+        transform.LookAt(_target.transform.position);
+        Debug.Log(_target);
+        _damageInfo = new DamageInfo(_damageInfo.Amount, _damageInfo.Instigator, _damageInfo.Instigator);
+
         while (true)
         {
-            _rb.linearVelocity = transform.forward * _speed * 10;
+            Move();
             yield return null;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.TryGetComponent(out Health hitHealth)) return;
+        if (!other.TryGetComponent(out Health hitHealth))
+        {
+            Debug.Log(other.gameObject.name);
+            return;
+        }
 
-        hitHealth.Damage(new DamageInfo(hitHealth.Current, gameObject, other.gameObject));
+        Debug.Log("came in contact");
 
-        Destroy(gameObject);
+        if (hitHealth.gameObject.TryGetComponent<PlayerController>(out PlayerController player))
+        {
+            if (!_isParried)
+            {
+                hitHealth.Damage(_damageInfo);
+                Destroy(gameObject);
+            }
+            
+        }
+        else if (hitHealth.gameObject.TryGetComponent<EnemyController>(out EnemyController enemy))
+        {
+            if(_isParried) 
+            {
+                hitHealth.Damage(_damageInfo);
+                Debug.Log("parried state");
+                Destroy(gameObject);
+            }
+        }
+        
     }
 }
