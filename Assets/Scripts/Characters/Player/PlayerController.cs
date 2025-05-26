@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
     //placeholder method
     public void OnLaunchPlayerUpwards()
     {
-        Debug.Log("Added Force.");
         _rb.AddForce(new Vector3(10, _launchForce, 10), ForceMode.Impulse);
     }
 

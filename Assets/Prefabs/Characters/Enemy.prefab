@@ -921,7 +921,7 @@ MonoBehaviour:
   tempVar_AttackCooldown: 4
   _projectile: {fileID: 3745136557206113660, guid: 44b62e5b3bea0eb4a9f0c2b7114db758, type: 3}
   _projectileDamage: 0
-  _projectileSpeed: 3
+  _projectileSpeed: 15
 --- !u!1 &3648723090117337914
 GameObject:
   m_ObjectHideFlags: 0

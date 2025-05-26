@@ -23,9 +23,6 @@ public class EnemyWeapon : MonoBehaviour
             Attack(target, instigator);
             _lastAttackTime = Time.time;
         }
-
-        Debug.Log("tried attack");
-        
     }
 
     protected virtual void Attack(GameObject target, GameObject instigator)

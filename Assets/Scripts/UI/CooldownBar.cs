@@ -12,7 +12,6 @@ public class CooldownBar : MonoBehaviour
 
     public void StartCooldown(float cooldown)
     {
-        Debug.Log("started cooldown");
         _cooldownStartTime = Time.time;
         _cooldownDuration = cooldown;
         _fillBar.fillAmount = 1;
@@ -24,7 +23,6 @@ public class CooldownBar : MonoBehaviour
         while (_fillBar.fillAmount > 0)
         {
             _fillBar.fillAmount = 1 - (Time.time - _cooldownStartTime) / _cooldownDuration;
-            Debug.Log("filling");
             yield return null;
         }
         yield return null;

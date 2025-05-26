@@ -132,6 +132,7 @@ MonoBehaviour:
   _dashForce: 100
   _dashCooldown: 2
   _parryRange: 5
+  _parryCooldown: 1
   _bounceBulletTimeModifier: 0.1
   _dashHitStopDuration: 250
   _cameraTransform: {fileID: 8659822033452909527}
@@ -407,7 +408,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: -67.96965
+    Value: 0
     Center: 0
     Range: {x: -90, y: 90}
     Wrap: 0
