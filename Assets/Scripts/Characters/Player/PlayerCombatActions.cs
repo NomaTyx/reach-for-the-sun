@@ -30,6 +30,7 @@ public class PlayerCombatActions : MonoBehaviour
 
     //player state trackers and cooldowns
     private bool _isDashing;
+    private float _nextDashTime;
 
     public event Action OnParry;
     public event Action<float> OnDash;
@@ -46,6 +47,9 @@ public class PlayerCombatActions : MonoBehaviour
 
         _health.OnDamage += DamageBehavior;
         _health.OnDeath += DeathBehavior;
+
+        //gotta set cooldown so that you can dash immediately
+        _nextDashTime = 0;
     }
 
     private void OnDestroy()
@@ -89,6 +93,11 @@ public class PlayerCombatActions : MonoBehaviour
     //todo: make dash FASTER than normal movement!
     public IEnumerator Dash()
     {
+        if (Time.time < _nextDashTime)
+        {
+            yield break;
+        }
+
         Vector3 playerVelocity = _rb.linearVelocity;
         Vector3 newDirection = _cameraTransform.forward;
         _rb.linearVelocity = Vector3.zero;
@@ -103,7 +112,6 @@ public class PlayerCombatActions : MonoBehaviour
         while (_isDashing)
         {
             _rb.linearVelocity = newDirection * _dashForce;
-            Debug.Log("dashing");
             if (Time.time >= dashStartTime + _dashTime)
             {
                 StopDash();
@@ -112,6 +120,8 @@ public class PlayerCombatActions : MonoBehaviour
         }
 
         OnDash?.Invoke(_dashCooldown);
+        
+        _nextDashTime = Time.time + _dashCooldown;
     }
 
     //i need this method because there will be multiple things that stop the dash.

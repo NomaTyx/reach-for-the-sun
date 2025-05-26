@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class HUD : MonoBehaviour
 {
+    [SerializeField] private CooldownBar _dashCooldownBar;
     PlayerCombatActions player;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         player = FindFirstObjectByType<PlayerCombatActions>();
@@ -16,14 +17,8 @@ public class HUD : MonoBehaviour
         player.OnDash -= DashCooldown;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void DashCooldown(float cooldown)
     {
-        Debug.Log("Dash cooled down");
+        _dashCooldownBar.StartCooldown(cooldown);
     }
 }

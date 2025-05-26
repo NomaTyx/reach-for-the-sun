@@ -130,7 +130,7 @@ MonoBehaviour:
   _bounceCooldown: 0
   _dashTime: 2.5
   _dashForce: 100
-  _dashCooldown: 0
+  _dashCooldown: 2
   _parryRange: 5
   _bounceBulletTimeModifier: 0.1
   _dashHitStopDuration: 250
