@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -29,6 +30,10 @@ public class PlayerCombatActions : MonoBehaviour
 
     //player state trackers and cooldowns
     private bool _isDashing;
+
+    public event Action OnParry;
+    public event Action<float> OnDash;
+    public event Action OnBounce;
 
     private void Start()
     {
@@ -77,6 +82,8 @@ public class PlayerCombatActions : MonoBehaviour
         //add more complex logic potentially
         _rb.AddForce(Vector3.up * (_bounceForce + numOfEnemies), ForceMode.Impulse);
         TimeManager.Instance.BulletTime(1);
+
+        OnBounce?.Invoke();
     }
 
     //todo: make dash FASTER than normal movement!
@@ -103,6 +110,8 @@ public class PlayerCombatActions : MonoBehaviour
             }
             yield return null;
         }
+
+        OnDash?.Invoke(_dashCooldown);
     }
 
     //i need this method because there will be multiple things that stop the dash.
@@ -131,6 +140,7 @@ public class PlayerCombatActions : MonoBehaviour
         }
 
         //cooldown logic goes here
+        OnParry?.Invoke();
     }
 
     private void OnTriggerEnter(Collider other)
