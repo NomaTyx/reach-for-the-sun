@@ -12,10 +12,11 @@ public class PlayerCombatActions : MonoBehaviour
     [Header("Dashing")]
     [SerializeField] private float _dashTime = 2.5f;
     [SerializeField] private float _dashForce = 100;
-    [SerializeField] private float _dashCooldown;
+    [SerializeField] private float _dashCooldown = 2f;
 
     [Header("Parrying")]
     [SerializeField] private float _parryRange = 5f;
+    [SerializeField] private float _parryCooldown = 1f;
 
     [Header("Hitstop and bullet time")]
     [SerializeField] private float _bounceBulletTimeModifier = 0.1f;
@@ -30,9 +31,10 @@ public class PlayerCombatActions : MonoBehaviour
 
     //player state trackers and cooldowns
     private bool _isDashing;
-    private float _nextDashTime;
+    private float _nextDashTime = 0;
+    private float _nextParryTime = 0;
 
-    public event Action OnParry;
+    public event Action<float> OnParry;
     public event Action<float> OnDash;
     public event Action OnBounce;
 
@@ -47,9 +49,6 @@ public class PlayerCombatActions : MonoBehaviour
 
         _health.OnDamage += DamageBehavior;
         _health.OnDeath += DeathBehavior;
-
-        //gotta set cooldown so that you can dash immediately
-        _nextDashTime = 0;
     }
 
     private void OnDestroy()
@@ -60,11 +59,8 @@ public class PlayerCombatActions : MonoBehaviour
 
     public void Bounce()
     {
-        if (_isDashing)
-        {
-            Debug.Log("failed bounce");
-            return;
-        }
+        if (_isDashing) return;
+
         //StopDash();
 
         //give extra force for each enemy i guess? idk this is mostly an idea i can do later
@@ -93,10 +89,7 @@ public class PlayerCombatActions : MonoBehaviour
     //todo: make dash FASTER than normal movement!
     public IEnumerator Dash()
     {
-        if (Time.time < _nextDashTime)
-        {
-            yield break;
-        }
+        if (Time.time < _nextDashTime) yield break;
 
         Vector3 playerVelocity = _rb.linearVelocity;
         Vector3 newDirection = _cameraTransform.forward;
@@ -136,6 +129,8 @@ public class PlayerCombatActions : MonoBehaviour
     //TODO: implement cooldown logic
     public void Parry()
     {
+        if (Time.time < _nextParryTime) return;
+
         //check only the projectile layer
         Collider[] colliders = Physics.OverlapSphere(transform.position, _parryRange);
 
@@ -150,7 +145,9 @@ public class PlayerCombatActions : MonoBehaviour
         }
 
         //cooldown logic goes here
-        OnParry?.Invoke();
+        OnParry?.Invoke(_parryCooldown);
+
+        _nextParryTime = Time.time + _parryCooldown;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -181,11 +178,11 @@ public class PlayerCombatActions : MonoBehaviour
 
     private void DamageBehavior(GameObject damagedObj)
     {
-        Debug.Log("bro took damage");
+        Debug.Log("player took damage");
     }
 
     private void DeathBehavior(GameObject deadObj)
     {
-        Debug.Log("bro died");
+        Debug.Log("player died");
     }
 }
