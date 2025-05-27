@@ -33,12 +33,13 @@ public class PlayerCombatActions : MonoBehaviour
     private bool _isDashing;
     private float _nextDashTime = 0;
     private float _nextParryTime = 0;
+    private float _nextBounceTime = 0;
 
     //events
     public event Action<float> OnParry;
     public event Action OnDashStarted;
     public event Action<float> OnDashFinished;
-    public event Action OnBounce;
+    public event Action<float> OnBounce;
 
     private void Start()
     {
@@ -61,6 +62,8 @@ public class PlayerCombatActions : MonoBehaviour
 
     public void Bounce()
     {
+        if (Time.time < _nextParryTime) return;
+
         if (_isDashing) return;
 
         //StopDash();
@@ -85,7 +88,9 @@ public class PlayerCombatActions : MonoBehaviour
         _rb.AddForce(Vector3.up * (_bounceForce + numOfEnemies), ForceMode.Impulse);
         TimeManager.Instance.BulletTime(1);
 
-        OnBounce?.Invoke();
+        OnBounce?.Invoke(_bounceCooldown);
+
+        _nextBounceTime = Time.time + _bounceCooldown;
     }
 
     //todo: make dash FASTER than normal movement!
@@ -121,7 +126,9 @@ public class PlayerCombatActions : MonoBehaviour
         _nextDashTime = Time.time + _dashCooldown;
     }
 
-    //i need this method because there will be multiple things that stop the dash.
+    /// <summary>
+    /// stops the dash on the spot, re-enabling all relevant colliders
+    /// </summary>
     private void StopDash()
     {
         _isDashing = false;
