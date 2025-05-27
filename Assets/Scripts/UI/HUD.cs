@@ -5,6 +5,7 @@ public class HUD : MonoBehaviour
 {
     [SerializeField] private CooldownBar _dashCooldownBar;
     [SerializeField] private CooldownBar _parryCooldownBar;
+    [SerializeField] private CooldownBar _bounceCooldownBar;
     PlayerCombatActions player;
 
     void Start()
@@ -18,7 +19,9 @@ public class HUD : MonoBehaviour
 
     private void OnDestroy()
     {
+        player.OnDashStarted -= DashActivated;
         player.OnDashFinished -= DashCooldown;
+        player.OnParry -= ParryCooldown;
     }
 
     private void DashActivated()
@@ -34,5 +37,10 @@ public class HUD : MonoBehaviour
     private void ParryCooldown(float cooldown)
     {
         _parryCooldownBar.StartCooldown(cooldown);
+    }
+
+    private void BounceCooldown(float cooldown)
+    {
+        _bounceCooldownBar.StartCooldown(cooldown);
     }
 }
