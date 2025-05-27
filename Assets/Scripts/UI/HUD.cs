@@ -11,13 +11,19 @@ public class HUD : MonoBehaviour
     {
         player = FindFirstObjectByType<PlayerCombatActions>();
 
-        player.OnDash += DashCooldown;
+        player.OnDashStarted += DashActivated;
+        player.OnDashFinished += DashCooldown;
         player.OnParry += ParryCooldown;
     }
 
     private void OnDestroy()
     {
-        player.OnDash -= DashCooldown;
+        player.OnDashFinished -= DashCooldown;
+    }
+
+    private void DashActivated()
+    {
+        _dashCooldownBar.ShowIfAbilityActive();
     }
 
     private void DashCooldown(float cooldown)

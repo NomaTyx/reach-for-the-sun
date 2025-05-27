@@ -34,8 +34,10 @@ public class PlayerCombatActions : MonoBehaviour
     private float _nextDashTime = 0;
     private float _nextParryTime = 0;
 
+    //events
     public event Action<float> OnParry;
-    public event Action<float> OnDash;
+    public event Action OnDashStarted;
+    public event Action<float> OnDashFinished;
     public event Action OnBounce;
 
     private void Start()
@@ -102,6 +104,8 @@ public class PlayerCombatActions : MonoBehaviour
         _isDashing = true;
         _rb.useGravity = false;
 
+        OnDashStarted?.Invoke();
+
         while (_isDashing)
         {
             _rb.linearVelocity = newDirection * _dashForce;
@@ -112,7 +116,7 @@ public class PlayerCombatActions : MonoBehaviour
             yield return null;
         }
 
-        OnDash?.Invoke(_dashCooldown);
+        OnDashFinished?.Invoke(_dashCooldown);
         
         _nextDashTime = Time.time + _dashCooldown;
     }
