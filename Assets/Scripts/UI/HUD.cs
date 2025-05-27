@@ -15,6 +15,7 @@ public class HUD : MonoBehaviour
         player.OnDashStarted += DashActivated;
         player.OnDashFinished += DashCooldown;
         player.OnParry += ParryCooldown;
+        player.OnBounce += BounceCooldown;
     }
 
     private void OnDestroy()
@@ -22,6 +23,7 @@ public class HUD : MonoBehaviour
         player.OnDashStarted -= DashActivated;
         player.OnDashFinished -= DashCooldown;
         player.OnParry -= ParryCooldown;
+        player.OnBounce -= BounceCooldown;
     }
 
     private void DashActivated()
@@ -31,6 +33,7 @@ public class HUD : MonoBehaviour
 
     private void DashCooldown(float cooldown)
     {
+        _dashCooldownBar.ShowIfAbilityActive();
         _dashCooldownBar.StartCooldown(cooldown);
     }
 

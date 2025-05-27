@@ -62,7 +62,7 @@ public class PlayerCombatActions : MonoBehaviour
 
     public void Bounce()
     {
-        if (Time.time < _nextParryTime) return;
+        if (Time.time < _nextBounceTime) return;
 
         if (_isDashing) return;
 

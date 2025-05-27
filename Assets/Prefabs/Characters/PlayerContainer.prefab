@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bounceRange: 10
   _bounceForce: 100
-  _bounceCooldown: 0
+  _bounceCooldown: 5
   _dashTime: 2.5
   _dashForce: 100
   _dashCooldown: 2

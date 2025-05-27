@@ -13,13 +13,11 @@ public class CooldownBar : MonoBehaviour
 
     public void ShowIfAbilityActive()
     {
-        Debug.Log("abilityactive is called");
         _activityIcon.enabled = !_activityIcon.enabled;
     }
 
     public void StartCooldown(float cooldown)
     {
-        ShowIfAbilityActive();
         _cooldownStartTime = Time.time;
         _cooldownDuration = cooldown;
         _fillBar.fillAmount = 1;
