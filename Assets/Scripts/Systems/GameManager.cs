@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
      - UI state
     */
 
-    public GameState State;
+    public GameStateBase State;
     private void Start()
     {
         if (Instance != null)
