@@ -160,8 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a9d1428d2e5bc4c8f2bbd6b371ce68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 1
-  _currentHealth: 1
+  _maxHealth: 3
+  _currentHealth: 3
   _damageTestPercent: 10
 --- !u!64 &3201994707075999131
 MeshCollider:
