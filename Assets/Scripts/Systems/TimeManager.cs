@@ -26,6 +26,7 @@ public class TimeManager : MonoBehaviour
     public void BulletTime(float modifier)
     {
         //perhaps make this lerp?
+        Debug.Log("bullettimed");
         Time.timeScale = modifier;
     }
 
@@ -42,6 +43,7 @@ public class TimeManager : MonoBehaviour
         float previousTimeScale = Time.timeScale;
         Time.timeScale = 0;
 
+        Debug.Log("hitstopped");
         yield return new WaitForSecondsRealtime(durationMilliseconds / 1000);
 
         if(!_gamePaused)
