@@ -58,15 +58,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Shatter",
-                    "type": "Button",
-                    "id": "84057457-5435-4f5a-bca8-3a2a4807942d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -276,17 +267,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Parry",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "be17f812-e033-4820-936f-0e160adade5d",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shatter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
