@@ -125,6 +125,8 @@ public class PlayerCombatActions : MonoBehaviour
             yield return null;
         }
 
+        _rb.linearVelocity = playerVelocity;
+
         OnDashFinished?.Invoke(_dashCooldown);
     }
 

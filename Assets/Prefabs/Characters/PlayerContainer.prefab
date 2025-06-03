@@ -128,9 +128,9 @@ MonoBehaviour:
   _bounceRange: 10
   _bounceForce: 100
   _bounceCooldown: 5
-  _dashTime: 2.5
-  _dashForce: 100
-  _dashCooldown: 2
+  _dashTime: 0.2
+  _dashForce: 500
+  _dashCooldown: 0.5
   _parryRange: 5
   _parryCooldown: 1
   _bounceBulletTimeModifier: 0.1
