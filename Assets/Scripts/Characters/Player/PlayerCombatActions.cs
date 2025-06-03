@@ -77,6 +77,7 @@ public class PlayerCombatActions : MonoBehaviour
             if (hitHealth == null) continue;
             hitHealth.Damage(new DamageInfo(hitHealth.Current, this.gameObject, hitHealth.gameObject));
 
+            //currently unused variable that tracks how many enemies are being bounced off of.
             numOfEnemies++;
         }
 
@@ -97,6 +98,9 @@ public class PlayerCombatActions : MonoBehaviour
     public IEnumerator Dash()
     {
         if (Time.time < _nextDashTime) yield break;
+
+        //cooldown has to account for the time the player spends dashing
+        _nextDashTime = Time.time + _dashCooldown + _dashTime;
 
         Vector3 playerVelocity = _rb.linearVelocity;
         Vector3 newDirection = _cameraTransform.forward;
@@ -122,8 +126,6 @@ public class PlayerCombatActions : MonoBehaviour
         }
 
         OnDashFinished?.Invoke(_dashCooldown);
-        
-        _nextDashTime = Time.time + _dashCooldown;
     }
 
     /// <summary>
@@ -194,6 +196,8 @@ public class PlayerCombatActions : MonoBehaviour
 
     private void DeathBehavior(GameObject deadObj)
     {
-        Debug.Log("player died");
+        GetComponentInChildren<Shatterer>(true).gameObject.SetActive(true);
     }
+
+    
 }
