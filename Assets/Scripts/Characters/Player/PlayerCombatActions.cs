@@ -60,6 +60,10 @@ public class PlayerCombatActions : MonoBehaviour
         _health.OnDeath -= DeathBehavior;
     }
 
+    /// <summary>
+    /// look for every enemy within bouncing range and deal damage to it. also propel with additional force per enemy
+    /// </summary>
+    //TODO: make this only check the enemy layer
     public void Bounce()
     {
         if (Time.time < _nextBounceTime) return;
