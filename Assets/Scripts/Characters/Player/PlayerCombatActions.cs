@@ -40,6 +40,7 @@ public class PlayerCombatActions : MonoBehaviour
     public event Action OnDashStarted;
     public event Action<float> OnDashFinished;
     public event Action<float> OnBounce;
+    public event Action OnPlayerDeath;
 
     private void Start()
     {
@@ -203,6 +204,7 @@ public class PlayerCombatActions : MonoBehaviour
     private void DeathBehavior(GameObject deadObj)
     {
         GetComponentInChildren<Shatterer>(true).gameObject.SetActive(true);
+        OnPlayerDeath?.Invoke();
     }
 
     
