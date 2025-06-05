@@ -205,7 +205,7 @@ public class PlayerCombatActions : MonoBehaviour
     {
         GetComponentInChildren<Shatterer>(true).gameObject.SetActive(true);
         OnPlayerDeath?.Invoke();
-    } 
+    }   
 
     
 }
