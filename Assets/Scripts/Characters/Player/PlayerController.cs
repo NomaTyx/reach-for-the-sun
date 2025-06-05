@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
@@ -24,7 +25,9 @@ public class PlayerController : MonoBehaviour
     private PlayerCombatActions _combatActions;
     private PlayerMovement _movement;
     private Rigidbody _rb;
-    
+
+    //using a string as key for testing, it's probably not the most optimal solution.
+    public Dictionary<string, AbilityBase> _abilities = new Dictionary<string, AbilityBase>();
 
     private void Start()
     {
@@ -32,6 +35,9 @@ public class PlayerController : MonoBehaviour
         _combatActions = GetComponent<PlayerCombatActions>();
         _movement = GetComponent<PlayerMovement>();
         _rb = GetComponent<Rigidbody>();
+
+        _abilities["bounce"] = gameObject.AddComponent<Ability_Bounce>();
+        _abilities["bounce"].Init(gameObject);
     }
 
     //placeholder method
@@ -47,7 +53,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnBounce()
     {
-        _combatActions.Bounce();
+        //_combatActions.Bounce();
+        _abilities["bounce"].TryUse();
     }
 
     public void OnParry()
