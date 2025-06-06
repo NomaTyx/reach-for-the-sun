@@ -1,3 +1,5 @@
+//credit to Apoorv Taneja for coming up with this state management system. thank you for saving me hours of time.
+//didnt stop me from putting hours into it anyway tho lollllllllllll
 using System;
 using System.Collections.Generic;
 using UnityEngine;
