@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     {
         _weapon = GetComponentInChildren<EnemyWeapon>();
         _health = GetComponent<Health>();
-        _target = FindFirstObjectByType<PlayerController>(); //dunno if the enemy should track the player by its Health component but that's what makes sense to me?
+        _target = GameManager.Instance.Player; //dunno if the enemy should track the player by its Health component but that's what makes sense to me?
 
         _health.OnDamage += DamageBehavior;
         _health.OnDeath += DeathBehavior;

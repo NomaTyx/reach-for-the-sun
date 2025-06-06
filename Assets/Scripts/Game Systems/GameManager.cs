@@ -12,8 +12,12 @@ public class GameManager : MonoBehaviour
     */
 
     public GameStateBase State;
+    public PlayerController Player;
     private void Start()
     {
+        //caching player component for easy referencing
+        Player = FindFirstObjectByType<PlayerController>();
+
         if (Instance != null)
         {
             Debug.Log("There's already an instance of this singleton!");
@@ -22,6 +26,5 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(this);
-
     }
 }
