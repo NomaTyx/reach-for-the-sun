@@ -1,16 +1,46 @@
+using System.Collections;
 using UnityEngine;
 
-public class AbilityDash : MonoBehaviour
+public class AbilityDash : AbilityBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Init(GameObject player)
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Effect(bool doCooldown)
     {
-        
+        StartCoroutine(Dash());
+    }
+
+    //possibly include logic determining where to target?
+    private IEnumerator Dash()
+    {
+        Vector3 playerVelocity = _rb.linearVelocity;
+        Vector3 newDirection = _cameraTransform.forward;
+        _rb.linearVelocity = Vector3.zero;
+        float dashStartTime = Time.time;
+
+        _dashCollider.enabled = true;
+        _bounceCollider.enabled = false;
+
+        _isDashing = true;
+        _rb.useGravity = false;
+
+        OnDashStarted?.Invoke();
+
+        while (_isDashing)
+        {
+            _rb.linearVelocity = newDirection * _dashForce;
+            if (Time.time >= dashStartTime + _dashTime)
+            {
+                StopDash();
+            }
+            yield return null;
+        }
+
+        _rb.linearVelocity = playerVelocity;
+
+        base.Effect(doCooldown);
     }
 }
