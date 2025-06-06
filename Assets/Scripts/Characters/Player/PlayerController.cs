@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         _movement = GetComponent<PlayerMovement>();
         _rb = GetComponent<Rigidbody>();
 
-        _abilities["bounce"] = gameObject.AddComponent<Ability_Bounce>();
+        _abilities["bounce"] = gameObject.AddComponent<AbilityBounce>();
         _abilities["bounce"].Init(gameObject);
     }
 

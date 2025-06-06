@@ -10,8 +10,8 @@ public class AbilityBase : MonoBehaviour
     protected bool canUse = true;
     protected GameObject _player;
 
-    public event Action<AbilityBase> OnAbilityActivated;
-    public event Action<AbilityBase> OnAbilityFinished;
+    public event Action<AbilityBase> AbilityActivated;
+    public event Action<AbilityBase> AbilityFinished;
 
     protected WaitForSecondsRealtime cooldownWFS;
     //i'm probably going to create instances of all the abilities on start() of playercombatactions and add em to a list or smth

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Ability_Dash : MonoBehaviour
+public class AbilityDash : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

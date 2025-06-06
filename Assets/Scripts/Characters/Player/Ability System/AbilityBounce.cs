@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Ability_Bounce : AbilityBase
+public class AbilityBounce : AbilityBase
 {
     private SphereCollider _bounceCollider;
 
