@@ -3,9 +3,18 @@ using UnityEngine;
 
 public class AbilityDash : AbilityBase
 {
-    public override void Init(GameObject player)
-    {
+    private Rigidbody _rb;
+    private CapsuleCollider _dashCollider;
+    private SphereCollider _bounceCollider;
 
+    //hardcoded values
+    private float _dashForce = 100f;
+
+    public override void Init()
+    {
+        _rb = _player.GetComponent<Rigidbody>();
+        _dashCollider = _player.GetComponent<CapsuleCollider>();
+        _bounceCollider = _player.GetComponent<SphereCollider>();
     }
 
     public override void Effect(bool doCooldown)
@@ -24,15 +33,12 @@ public class AbilityDash : AbilityBase
         _dashCollider.enabled = true;
         _bounceCollider.enabled = false;
 
-        _isDashing = true;
         _rb.useGravity = false;
-
-        OnDashStarted?.Invoke();
 
         while (_isDashing)
         {
             _rb.linearVelocity = newDirection * _dashForce;
-            if (Time.time >= dashStartTime + _dashTime)
+            if (Time.time >= dashStartTime + EffectDuration)
             {
                 StopDash();
             }
@@ -42,5 +48,13 @@ public class AbilityDash : AbilityBase
         _rb.linearVelocity = playerVelocity;
 
         base.Effect(doCooldown);
+    }
+
+    private void StopDash()
+    {
+        _isDashing = false;
+        _rb.useGravity = true;
+        _dashCollider.enabled = false;
+        _bounceCollider.enabled = true;
     }
 }

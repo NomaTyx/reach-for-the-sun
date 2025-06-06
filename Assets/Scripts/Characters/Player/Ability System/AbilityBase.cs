@@ -5,8 +5,8 @@ using UnityEngine;
 public class AbilityBase : MonoBehaviour
 {
     public string abilityName;
-    public float cooldown;
-    public float duration;
+    public float CooldownDuration;
+    public float EffectDuration;
     protected bool canUse = true;
     protected GameObject _player;
 
@@ -16,9 +16,9 @@ public class AbilityBase : MonoBehaviour
     protected WaitForSecondsRealtime cooldownWFS;
     //i'm probably going to create instances of all the abilities on start() of playercombatactions and add em to a list or smth
 
-    public virtual void Init(GameObject player)
+    public virtual void Init()
     {
-        _player = player;
+        _player = GameManager.Instance.Player.gameObject;
     }
     public void TryUse()
     {

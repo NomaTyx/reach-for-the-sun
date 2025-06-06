@@ -11,18 +11,17 @@ public class AbilityBounce : AbilityBase
     private float _bounceCooldown = 5f;
     private Rigidbody _rb;
 
-    public override void Init(GameObject player)
+    public override void Init()
     {
-        base.Init(player);
         abilityName = "Bounce";
-        _rb = player.GetComponent<Rigidbody>();
+        _rb = _player.GetComponent<Rigidbody>();
         //hardcoding cooldowns and durations for now, until i can decide where to store them
-        cooldown = 2f; 
-        duration = 0;
+        CooldownDuration = 2f; 
+        EffectDuration = 0;
         _bounceCollider = _player.GetComponent<SphereCollider>();
         _bounceCollider.radius = _bounceRange;
         
-        cooldownWFS = new WaitForSecondsRealtime(cooldown);
+        cooldownWFS = new WaitForSecondsRealtime(CooldownDuration);
     }
 
     public override void Effect(bool doCooldown) 
