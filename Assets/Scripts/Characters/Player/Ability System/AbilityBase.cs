@@ -1,3 +1,4 @@
+//probably the single meaningful thing i've ever actually created on my own. let's go.
 using System;
 using System.Collections;
 using UnityEngine;

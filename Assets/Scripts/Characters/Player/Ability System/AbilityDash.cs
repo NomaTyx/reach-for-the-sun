@@ -20,7 +20,7 @@ public class AbilityDash : AbilityBase
         _rb = _player.GetComponent<Rigidbody>();
         _dashCollider = _player.GetComponent<CapsuleCollider>();
         _bounceCollider = _player.GetComponent<SphereCollider>();
-        _cameraTransform = GameObject.FindWithTag("PlayerVCam").transform;
+        _cameraTransform = GameManager.Instance.Camera.transform;
     }
 
     public override void Effect(bool doCooldown)

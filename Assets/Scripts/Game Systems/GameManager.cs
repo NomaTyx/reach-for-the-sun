@@ -13,10 +13,13 @@ public class GameManager : MonoBehaviour
 
     public GameStateBase State;
     public PlayerController Player;
+    public Camera Camera;
+
     private void Start()
     {
         //caching player component for easy referencing
         Player = FindFirstObjectByType<PlayerController>();
+        Camera = FindFirstObjectByType<Camera>();
 
         if (Instance != null)
         {

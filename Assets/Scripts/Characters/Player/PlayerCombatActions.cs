@@ -23,7 +23,7 @@ public class PlayerCombatActions : MonoBehaviour
     [SerializeField] private float _dashHitStopDuration = 250f; //milliseconds
 
     //components
-    [SerializeField] private Transform _cameraTransform;
+    private Transform _cameraTransform;
     private SphereCollider _bounceCollider;
     private CapsuleCollider _dashCollider;
     private Rigidbody _rb;
@@ -46,6 +46,7 @@ public class PlayerCombatActions : MonoBehaviour
     {
         _bounceCollider = GetComponent<SphereCollider>();
         _dashCollider = GetComponent<CapsuleCollider>();
+        _cameraTransform = GameManager.Instance.Camera.transform;
         _health = GetComponent<Health>();
 
         _bounceCollider.radius = _bounceRange;
@@ -130,7 +131,7 @@ public class PlayerCombatActions : MonoBehaviour
             yield return null;
         }
 
-        _rb.linearVelocity = playerVelocity;
+        _rb.linearVelocity = new Vector3(playerVelocity.x, 0, playerVelocity.z);
 
         OnDashFinished?.Invoke(_dashCooldown);
     }
