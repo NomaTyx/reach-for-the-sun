@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AbilityBase : MonoBehaviour
 {
-    public string abilityName;
+    public string AbilityName;
     public float CooldownDuration;
     public float EffectDuration;
-    protected bool canUse = true;
+    protected bool _canUse = true;
     protected GameObject _player;
 
     public event Action<AbilityBase> AbilityActivated;
@@ -22,14 +22,18 @@ public class AbilityBase : MonoBehaviour
     }
     public void TryUse()
     {
-        if (!canUse) return;
+        if (!_canUse) return;
         AbilityActivated.Invoke(this);
-        canUse = false;
+        _canUse = false;
         Effect(true);
     }
     //doCooldown feels ugly to me but it's the cleanest way i can think of to do cooldowns only sometimes.
     //and i won't do cooldown if Effect is called by something else. Say there's an ability that lets you dash three times in a row, for example.
     //note to self: you can override as many times as you would like.
+    /// <summary>
+    /// base effect method including event invocation and cooldown routine. to be called after the ability is concluded.
+    /// </summary>
+    /// <param name="doCooldown"></param>
     public virtual void Effect(bool doCooldown)
     {
         if(doCooldown) StartCoroutine(Cooldown());
@@ -38,8 +42,8 @@ public class AbilityBase : MonoBehaviour
 
     public IEnumerator Cooldown()
     {
-        Debug.Log("cooling down" + abilityName);
+        Debug.Log("cooling down" + AbilityName);
         yield return cooldownWFS;
-        canUse = true;
+        _canUse = true;
     }
 }

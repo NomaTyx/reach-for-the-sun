@@ -6,24 +6,30 @@ public class AbilityDash : AbilityBase
     private Rigidbody _rb;
     private CapsuleCollider _dashCollider;
     private SphereCollider _bounceCollider;
+    private Transform _cameraTransform;
+
+    private bool _isDashing;
 
     //hardcoded values
     private float _dashForce = 100f;
 
     public override void Init()
     {
+        base.Init();
+        AbilityName = "Dash";
         _rb = _player.GetComponent<Rigidbody>();
         _dashCollider = _player.GetComponent<CapsuleCollider>();
         _bounceCollider = _player.GetComponent<SphereCollider>();
+        _cameraTransform = GameObject.FindWithTag("PlayerVCam").transform;
     }
 
     public override void Effect(bool doCooldown)
     {
-        StartCoroutine(Dash());
+        StartCoroutine(Dash(doCooldown));
     }
 
     //possibly include logic determining where to target?
-    private IEnumerator Dash()
+    private IEnumerator Dash(bool doCooldown)
     {
         Vector3 playerVelocity = _rb.linearVelocity;
         Vector3 newDirection = _cameraTransform.forward;
@@ -34,6 +40,7 @@ public class AbilityDash : AbilityBase
         _bounceCollider.enabled = false;
 
         _rb.useGravity = false;
+        _isDashing = true;
 
         while (_isDashing)
         {
@@ -41,13 +48,12 @@ public class AbilityDash : AbilityBase
             if (Time.time >= dashStartTime + EffectDuration)
             {
                 StopDash();
+                base.Effect(doCooldown); break;
             }
             yield return null;
         }
-
         _rb.linearVelocity = playerVelocity;
 
-        base.Effect(doCooldown);
     }
 
     private void StopDash()

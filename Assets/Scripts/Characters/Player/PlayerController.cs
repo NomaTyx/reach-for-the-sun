@@ -37,7 +37,10 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
 
         _abilities["bounce"] = gameObject.AddComponent<AbilityBounce>();
-        _abilities["bounce"].Init(gameObject);
+        foreach (string key in _abilities.Keys )
+        {
+            _abilities[key].Init();
+        }
     }
 
     //placeholder method
