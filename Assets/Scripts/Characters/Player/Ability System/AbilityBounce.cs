@@ -41,13 +41,14 @@ public class AbilityBounce : AbilityBase
             numOfEnemies++;
         }
 
+        if (numOfEnemies == 0) return;
+
         //later on i will factor in the player's x and y velocity
         Vector3 prevVelocity = _rb.linearVelocity;
         _rb.linearVelocity = Vector3.zero;
 
         //add more complex logic potentially
         _rb.AddForce(Vector3.up * (_bounceForce + numOfEnemies), ForceMode.Impulse);
-        TimeManager.Instance.BulletTime(1);
 
         //OnBounce?.Invoke(_bounceCooldown);
 

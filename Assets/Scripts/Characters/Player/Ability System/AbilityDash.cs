@@ -52,7 +52,7 @@ public class AbilityDash : AbilityBase
             }
             yield return null;
         }
-        _rb.linearVelocity = playerVelocity;
+        _rb.linearVelocity = new Vector3(playerVelocity.x, 0, playerVelocity.z);
 
     }
 

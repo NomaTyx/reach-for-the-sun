@@ -23,7 +23,7 @@ public class AbilityBase : MonoBehaviour
     public void TryUse()
     {
         if (!_canUse) return;
-        AbilityActivated.Invoke(this);
+        AbilityActivated?.Invoke(this);
         _canUse = false;
         Effect(true);
     }
@@ -37,7 +37,7 @@ public class AbilityBase : MonoBehaviour
     public virtual void Effect(bool doCooldown)
     {
         if(doCooldown) StartCoroutine(Cooldown());
-        AbilityFinished.Invoke(this);
+        AbilityFinished?.Invoke(this);
     }
 
     public IEnumerator Cooldown()
