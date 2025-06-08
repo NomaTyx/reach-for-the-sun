@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa2ba3185986d046967bd3d5225903f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  Camera: {fileID: 0}
+  AbilityData: {fileID: 11400000, guid: 37bbad228b259fb48acebc9889fb3ff4, type: 2}
 --- !u!114 &7546567527144580409
 MonoBehaviour:
   m_ObjectHideFlags: 0

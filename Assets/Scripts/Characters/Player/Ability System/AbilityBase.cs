@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class AbilityBase : MonoBehaviour
 {
+    //just edit the scriptable objects 
+    public AbilityData AbilityData;
     public string AbilityName;
     public float CooldownDuration;
     public float EffectDuration;
@@ -20,6 +22,7 @@ public class AbilityBase : MonoBehaviour
     public virtual void Init()
     {
         _player = GameManager.Instance.Player.gameObject;
+        AbilityData = GameManager.Instance.AbilityData;
     }
     public void TryUse()
     {
@@ -41,10 +44,18 @@ public class AbilityBase : MonoBehaviour
         AbilityFinished?.Invoke(this);
     }
 
+    //perhaps put this on the player and remove 
     public IEnumerator Cooldown()
     {
         Debug.Log("cooling down" + AbilityName);
         yield return cooldownWFS;
         _canUse = true;
     }
+}
+
+public enum AbilityNames
+{
+    bounce,
+    dash,
+    parry
 }

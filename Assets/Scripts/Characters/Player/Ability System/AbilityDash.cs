@@ -12,7 +12,7 @@ public class AbilityDash : AbilityBase
 
     //hardcoded values
     private float _dashForce = 100f;
-
+    private float DashTime => AbilityData.DashData.DashTime;
     public override void Init()
     {
         base.Init();

@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class AbilityBounce : AbilityBase
 {
-    private SphereCollider _bounceCollider;
-
     //hardcoded values for now
     private float _bounceRange = 10;
     private float _bounceForce = 100;
     private float _bounceCooldown = 5f;
+
+    private SphereCollider _bounceCollider;
     private Rigidbody _rb;
 
     public override void Init()
