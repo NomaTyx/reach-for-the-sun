@@ -26,8 +26,10 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement _movement;
     private Rigidbody _rb;
 
+    public Dictionary<string, AbilityBase> Abilities => _abilities;
+
     //using a string as key for testing, it's probably not the most optimal solution.
-    public Dictionary<string, AbilityBase> _abilities = new Dictionary<string, AbilityBase>();
+    private Dictionary<string, AbilityBase> _abilities = new Dictionary<string, AbilityBase>();
 
     private void Start()
     {
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
 
         _abilities["bounce"] = gameObject.AddComponent<AbilityBounce>();
+        _abilities["dash"] = gameObject.AddComponent<AbilityDash>();
         foreach (string key in _abilities.Keys )
         {
             _abilities[key].Init();
@@ -51,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash()
     {
-        StartCoroutine(_combatActions.Dash());
+        _abilities["dash"].TryUse();
     }
 
     public void OnBounce()

@@ -6,11 +6,10 @@ using UnityEngine;
 public class AbilityData : ScriptableObject
 {
     public int GenericInteger;
-    public SpecificAbilityData SpecificAbilityData;
-    public SpecificAbilityData2 SpecificAbilityData2;
     public DashData DashData;
+    public BounceData BounceData;
 
-    public List<BaseAbilityData> BaseAbilities()
+    public List<BaseAbilityData> Abilities()
     {
         //add all the abilities into this
         return new List<BaseAbilityData>();
@@ -20,25 +19,24 @@ public class AbilityData : ScriptableObject
 [Serializable]
 public class BaseAbilityData
 {
-    public int GenericInteger2;
-    public string GenericString;
-}
 
-[Serializable]
-public class SpecificAbilityData : BaseAbilityData
-{
-    [SerializeField] private float temp1;
-}
-
-[Serializable]
-public class SpecificAbilityData2 : BaseAbilityData
-{
-    [SerializeField] private string temp2;
 }
 
 [Serializable]
 public class DashData : BaseAbilityData
 {
-    [SerializeField] private float _dashTime;
+    [SerializeField] private float _dashTime = 2.5f;
     public float DashTime => _dashTime;
+}
+
+[Serializable]
+public class BounceData : BaseAbilityData
+{
+    [SerializeField] private float _bounceRange = 10;
+    [SerializeField] private float _bounceForce = 100;
+    [SerializeField] private float _bounceCooldown = 5f;
+
+    public float BounceRange => _bounceRange;
+    public float BounceForce => _bounceForce;
+    public float BounceCooldown => _bounceCooldown;
 }

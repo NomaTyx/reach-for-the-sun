@@ -5,13 +5,16 @@ using UnityEngine;
 
 public class AbilityBase : MonoBehaviour
 {
-    //just edit the scriptable objects 
-    public AbilityData AbilityData;
     public string AbilityName;
     public float CooldownDuration;
     public float EffectDuration;
+
+    //used to check if an ability is active.
+    public bool IsActive = false;
+
     protected bool _canUse = true;
     protected GameObject _player;
+    protected AbilityData _abilityData; //just edit the scriptable objects to change data
 
     public event Action<AbilityBase> AbilityActivated;
     public event Action<AbilityBase> AbilityFinished;
@@ -22,11 +25,18 @@ public class AbilityBase : MonoBehaviour
     public virtual void Init()
     {
         _player = GameManager.Instance.Player.gameObject;
-        AbilityData = GameManager.Instance.AbilityData;
+        _abilityData = GameManager.Instance.AbilityData;
     }
     public void TryUse()
     {
         if (!_canUse) return;
+
+        //check the player's list of abilities to see if one is active. can't interrupt an ability. 
+        foreach (var a in _player.GetComponent<PlayerController>().Abilities)
+        {
+            if (a.Value.IsActive) return;
+        }
+
         AbilityActivated?.Invoke(this);
         _canUse = false;
         Effect(true);

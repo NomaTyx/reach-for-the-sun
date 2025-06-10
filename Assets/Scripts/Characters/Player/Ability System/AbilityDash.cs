@@ -12,15 +12,19 @@ public class AbilityDash : AbilityBase
 
     //hardcoded values
     private float _dashForce = 100f;
-    private float DashTime => AbilityData.DashData.DashTime;
+    private float _dashTime => _abilityData.DashData.DashTime;
     public override void Init()
     {
         base.Init();
         AbilityName = "Dash";
+        EffectDuration = _dashTime;
+
         _rb = _player.GetComponent<Rigidbody>();
         _dashCollider = _player.GetComponent<CapsuleCollider>();
         _bounceCollider = _player.GetComponent<SphereCollider>();
         _cameraTransform = GameManager.Instance.Camera.transform;
+
+        cooldownWFS = new WaitForSecondsRealtime(1f);
     }
 
     public override void Effect(bool doCooldown)
@@ -31,6 +35,7 @@ public class AbilityDash : AbilityBase
     //possibly include logic determining where to target?
     private IEnumerator Dash(bool doCooldown)
     {
+        IsActive = true;
         Vector3 playerVelocity = _rb.linearVelocity;
         Vector3 newDirection = _cameraTransform.forward;
         _rb.linearVelocity = Vector3.zero;
@@ -48,7 +53,9 @@ public class AbilityDash : AbilityBase
             if (Time.time >= dashStartTime + EffectDuration)
             {
                 StopDash();
-                base.Effect(doCooldown); break;
+                IsActive = false;
+                base.Effect(doCooldown); 
+                break;
             }
             yield return null;
         }
