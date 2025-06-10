@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public Camera Camera;
     public AbilityData AbilityData;
 
-    private void Start()
+    private void Awake()
     {
         //caching player component for easy referencing
         Player = FindFirstObjectByType<PlayerController>();
