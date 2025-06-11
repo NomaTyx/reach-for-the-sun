@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
 
     //components
     private PlayerCombatActions _combatActions;
-    private PlayerMovement _movement;
     private Rigidbody _rb;
 
     public Dictionary<string, AbilityBase> Abilities => _abilities;
@@ -37,7 +36,6 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorMode;
         _combatActions = GetComponent<PlayerCombatActions>();
-        _movement = GetComponent<PlayerMovement>();
         _rb = GetComponent<Rigidbody>();
 
         _abilityManager = GetComponent<AbilityManager>();
