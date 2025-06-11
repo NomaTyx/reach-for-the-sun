@@ -28,8 +28,10 @@ public class PlayerController : MonoBehaviour
 
     public Dictionary<string, AbilityBase> Abilities => _abilities;
 
-    //using a string as key for testing, it's probably not the most optimal solution.
-    private Dictionary<string, AbilityBase> _abilities = new Dictionary<string, AbilityBase>();
+    //ability stuff
+    private Dictionary<string, AbilityBase> _abilities = new Dictionary<string, AbilityBase>(); //using a string as key for testing, it's probably not the most optimal solution.
+    private AbilityManager _abilityManager;
+
 
     private void Start()
     {
@@ -38,12 +40,9 @@ public class PlayerController : MonoBehaviour
         _movement = GetComponent<PlayerMovement>();
         _rb = GetComponent<Rigidbody>();
 
-        _abilities["bounce"] = gameObject.AddComponent<AbilityBounce>();
-        _abilities["dash"] = gameObject.AddComponent<AbilityDash>();
-        foreach (string key in _abilities.Keys )
-        {
-            _abilities[key].Init();
-        }
+        _abilityManager = GetComponent<AbilityManager>();
+        _abilityManager.InitAbilities();
+        _abilities = _abilityManager.Abilities;
     }
 
     //placeholder method
