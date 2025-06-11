@@ -778,7 +778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727172451423712842, guid: 6d4ccb8f18ab4ae4cafa4cbbc84007f6, type: 3}
       propertyPath: m_Name
-      value: HUD
+      value: HUD Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 3866458869666356731, guid: 6d4ccb8f18ab4ae4cafa4cbbc84007f6, type: 3}
       propertyPath: m_Mesh
@@ -903,7 +903,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5616459643930109451, guid: fe0d0c3b951753744b29e3fc642025bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.26
+      value: 36.32
       objectReference: {fileID: 0}
     - target: {fileID: 5616459643930109451, guid: fe0d0c3b951753744b29e3fc642025bc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -911,7 +911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5616459643930109451, guid: fe0d0c3b951753744b29e3fc642025bc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.61
+      value: -25.64
       objectReference: {fileID: 0}
     - target: {fileID: 5616459643930109451, guid: fe0d0c3b951753744b29e3fc642025bc, type: 3}
       propertyPath: m_LocalRotation.w

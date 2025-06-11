@@ -20,8 +20,8 @@ public class AbilityBase : MonoBehaviour
     public event Action<AbilityBase> AbilityFinished;
 
     protected WaitForSecondsRealtime cooldownWFS;
-    //i'm probably going to create instances of all the abilities on start() of playercombatactions and add em to a list or smth
 
+    //i'm probably going to create instances of all the abilities on start() of playercombatactions and add em to a list or smth
     public virtual void Init()
     {
         _player = GameManager.Instance.Player.gameObject;

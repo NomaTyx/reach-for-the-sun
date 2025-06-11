@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HUD : MonoBehaviour
@@ -8,9 +9,15 @@ public class HUD : MonoBehaviour
     [SerializeField] private CooldownBar _bounceCooldownBar;
     PlayerCombatActions player;
 
+    [SerializeField] private GameObject AbilityIconTemplate;
+
+    private Dictionary<string, AbilityBase> _abilityIcons;
+
     void Start()
     {
         player = FindFirstObjectByType<PlayerCombatActions>();
+        Instantiate(AbilityIconTemplate, gameObject.transform);
+        Instantiate(AbilityIconTemplate, gameObject.transform);
 
         player.OnDashStarted += DashActivated;
         player.OnDashFinished += DashCooldown;

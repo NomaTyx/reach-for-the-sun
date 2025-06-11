@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5237881625455066258}
   - component: {fileID: 4832658996770650830}
-  - component: {fileID: 751291600543796617}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -61,21 +60,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &751291600543796617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3727172451423712842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac874346c4b0254c942db5474e388aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dashCooldownBar: {fileID: 731845882538448406}
-  _parryCooldownBar: {fileID: 8687935847133338620}
-  _bounceCooldownBar: {fileID: 9033453691657568423}
 --- !u!1 &7770328563639460101
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8458040659012695891}
   - component: {fileID: 8269301469235691192}
+  - component: {fileID: 1736611383955112020}
   m_Layer: 0
   m_Name: Ability Icons
   m_TagString: Untagged
@@ -141,6 +126,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1736611383955112020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770328563639460101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac874346c4b0254c942db5474e388aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dashCooldownBar: {fileID: 731845882538448406}
+  _parryCooldownBar: {fileID: 8687935847133338620}
+  _bounceCooldownBar: {fileID: 9033453691657568423}
+  AbilityIconTemplate: {fileID: 956236322694271973, guid: 6bdf73a863f269f408873880392623c1, type: 3}
 --- !u!1001 &3122288937527780675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156,6 +157,10 @@ PrefabInstance:
     - target: {fileID: 1894579358077975740, guid: 6bdf73a863f269f408873880392623c1, type: 3}
       propertyPath: m_text
       value: Space
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772572005465410824, guid: 6bdf73a863f269f408873880392623c1, type: 3}
+      propertyPath: m_text
+      value: DASH
       objectReference: {fileID: 0}
     - target: {fileID: 5322094716240272594, guid: 6bdf73a863f269f408873880392623c1, type: 3}
       propertyPath: m_Pivot.x
