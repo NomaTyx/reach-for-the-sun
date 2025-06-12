@@ -14,18 +14,16 @@ public class AbilityBase : MonoBehaviour
 
     protected bool _canUse = true;
     protected GameObject _player;
-    protected AbilityData _abilityData; //just edit the scriptable objects to change data
 
-    public event Action<AbilityBase> AbilityActivated;
-    public event Action<AbilityBase> AbilityFinished;
+    public event Action AbilityActivated;
+    public event Action AbilityFinished;
 
     protected WaitForSecondsRealtime cooldownWFS;
-
     //i'm probably going to create instances of all the abilities on start() of playercombatactions and add em to a list or smth
+
     public virtual void Init()
     {
         _player = GameManager.Instance.Player.gameObject;
-        _abilityData = GameManager.Instance.AbilityData;
     }
     public void TryUse()
     {
@@ -37,7 +35,7 @@ public class AbilityBase : MonoBehaviour
             if (a.Value.IsActive) return;
         }
 
-        AbilityActivated?.Invoke(this);
+        AbilityActivated?.Invoke();
         _canUse = false;
         Effect(true);
     }
@@ -51,7 +49,7 @@ public class AbilityBase : MonoBehaviour
     public virtual void Effect(bool doCooldown)
     {
         if(doCooldown) StartCoroutine(Cooldown());
-        AbilityFinished?.Invoke(this);
+        AbilityFinished?.Invoke();
     }
 
     //perhaps put this on the player and remove 

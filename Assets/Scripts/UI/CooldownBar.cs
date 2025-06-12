@@ -11,16 +11,21 @@ public class CooldownBar : MonoBehaviour
     private float _cooldownStartTime;
     private float _cooldownDuration;
 
+    public void Init(float cooldownDuration)
+    {
+        _cooldownDuration = cooldownDuration;
+    }
+
     public void ShowIfAbilityActive()
     {
         _activityIcon.enabled = !_activityIcon.enabled;
     }
 
-    public void StartCooldown(float cooldown)
+    public void StartCooldown()
     {
         _cooldownStartTime = Time.time;
-        _cooldownDuration = cooldown;
         _fillBar.fillAmount = 1;
+        ShowIfAbilityActive();
         StartCoroutine(CooldownFill());
     }
 

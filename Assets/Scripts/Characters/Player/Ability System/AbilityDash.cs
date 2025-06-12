@@ -12,19 +12,22 @@ public class AbilityDash : AbilityBase
 
     //hardcoded values
     private float _dashForce = 100f;
-    private float _dashTime => _abilityData.DashData.DashTime;
+    private float _dashTime = 0.5f;
+    private float _dashCooldown = 1f;
     public override void Init()
     {
         base.Init();
         AbilityName = "Dash";
+
         EffectDuration = _dashTime;
+        CooldownDuration = _dashCooldown;
 
         _rb = _player.GetComponent<Rigidbody>();
         _dashCollider = _player.GetComponent<CapsuleCollider>();
         _bounceCollider = _player.GetComponent<SphereCollider>();
         _cameraTransform = GameManager.Instance.Camera.transform;
 
-        cooldownWFS = new WaitForSecondsRealtime(1f);
+        cooldownWFS = new WaitForSecondsRealtime(CooldownDuration);
     }
 
     public override void Effect(bool doCooldown)
