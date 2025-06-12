@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/* UNUSED SCRIPT, JUST KEEPING FOR REFERENCE'S SAKE */
+
 [CreateAssetMenu(fileName = "Abilities", menuName = "Available Abilities")]
 public class AbilityData : ScriptableObject
 {
@@ -26,7 +29,9 @@ public class BaseAbilityData
 public class DashData : BaseAbilityData
 {
     [SerializeField] private float _dashTime = 2.5f;
+    [SerializeField] private float _dashCooldown = 2.5f;
     public float DashTime => _dashTime;
+    public float DashCool => _dashTime;
 }
 
 [Serializable]

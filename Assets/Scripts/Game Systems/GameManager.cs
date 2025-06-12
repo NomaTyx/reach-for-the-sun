@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public GameStateBase State;
     public PlayerController Player;
     public Camera Camera;
-    public AbilityData AbilityData;
 
     private void Awake()
     {
