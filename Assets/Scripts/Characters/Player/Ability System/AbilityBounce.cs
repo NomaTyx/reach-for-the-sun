@@ -6,7 +6,7 @@ public class AbilityBounce : AbilityBase
     //hardcoded values for now
     private float _bounceRange = 10;
     private float _bounceForce = 100;
-    private float _bounceCooldown = 5f;
+    private float _bounceCooldown = 2f;
 
     private SphereCollider _bounceCollider;
     private Rigidbody _rb;
@@ -27,7 +27,6 @@ public class AbilityBounce : AbilityBase
 
     public override void Effect(bool doCooldown) 
     {
-        Debug.Log("succeeded bounce");
         float numOfEnemies = 0;
 
         foreach (Collider c in Physics.OverlapSphere(transform.position, 10))
@@ -41,7 +40,11 @@ public class AbilityBounce : AbilityBase
             numOfEnemies++;
         }
 
-        if (numOfEnemies == 0) return;
+        if (numOfEnemies == 0)
+        {
+            CancelAbility();
+            return;
+        }
 
         //later on i will factor in the player's x and y velocity
         Vector3 prevVelocity = _rb.linearVelocity;
@@ -49,8 +52,6 @@ public class AbilityBounce : AbilityBase
 
         //add more complex logic potentially
         _rb.AddForce(Vector3.up * (_bounceForce + numOfEnemies), ForceMode.Impulse);
-
-        //OnBounce?.Invoke(_bounceCooldown);
 
         base.Effect(doCooldown);
     }

@@ -4,7 +4,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class AbilityParry : AbilityBase
 {
     private float _parryCooldown = 2f;
-    private float _parryRange = 5f
+    private float _parryRange = 5f;
 
     public override void Init()
     {
@@ -18,7 +18,7 @@ public class AbilityParry : AbilityBase
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Effect(bool doCooldown)
     {
         //check only the projectile layer
         Collider[] colliders = Physics.OverlapSphere(transform.position, _parryRange);
@@ -32,5 +32,6 @@ public class AbilityParry : AbilityBase
                 rocket.ParryProjectile();
             }
         }
+        base.Effect(doCooldown);
     }
 }

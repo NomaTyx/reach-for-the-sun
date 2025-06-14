@@ -68,6 +68,7 @@ public class HUD : MonoBehaviour
             icon.GetComponentInChildren<TextMeshProUGUI>().text = a.AbilityName;
             a.AbilityActivated += icon.GetComponent<CooldownBar>().ShowIfAbilityActive;
             a.AbilityFinished += icon.GetComponent<CooldownBar>().StartCooldown;
+            a.AbilityCanceled += icon.GetComponent<CooldownBar>().ShowIfAbilityActive;
             icon.GetComponent<CooldownBar>().Init(a.CooldownDuration);
             _abilityIcons[a.AbilityName] = icon;
         }

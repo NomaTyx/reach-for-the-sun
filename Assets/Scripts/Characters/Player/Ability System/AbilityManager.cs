@@ -14,6 +14,7 @@ public class AbilityManager : MonoBehaviour
         //manually adding abilities for now
         _abilities["bounce"] = gameObject.AddComponent<AbilityBounce>();
         _abilities["dash"] = gameObject.AddComponent<AbilityDash>();
+        _abilities["parry"] = gameObject.AddComponent<AbilityParry>();
 
         foreach (string key in _abilities.Keys)
         {

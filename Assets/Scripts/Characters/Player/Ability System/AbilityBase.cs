@@ -17,6 +17,7 @@ public class AbilityBase : MonoBehaviour
 
     public event Action AbilityActivated;
     public event Action AbilityFinished;
+    public event Action AbilityCanceled; //for example if you bounce while no enemies are in range. this may be a bandaid solution, we'll see
 
     protected WaitForSecondsRealtime cooldownWFS;
     //i'm probably going to create instances of all the abilities on start() of playercombatactions and add em to a list or smth
@@ -25,6 +26,10 @@ public class AbilityBase : MonoBehaviour
     {
         _player = GameManager.Instance.Player.gameObject;
     }
+
+    /// <summary>
+    /// attempts to use the ability. checks cooldown and if there's an ability currently active
+    /// </summary>
     public void TryUse()
     {
         if (!_canUse) return;
@@ -48,8 +53,12 @@ public class AbilityBase : MonoBehaviour
     /// <param name="doCooldown"></param>
     public virtual void Effect(bool doCooldown)
     {
-        if(doCooldown) StartCoroutine(Cooldown());
-        AbilityFinished?.Invoke();
+        if (doCooldown)
+        {
+            StartCoroutine(Cooldown());
+            AbilityFinished?.Invoke();
+        }
+        Debug.Log("used ability");
     }
 
     //perhaps put this on the player and remove 
@@ -57,6 +66,12 @@ public class AbilityBase : MonoBehaviour
     {
         Debug.Log("cooling down" + AbilityName);
         yield return cooldownWFS;
+        _canUse = true;
+    }
+
+    public void CancelAbility()
+    {
+        AbilityCanceled?.Invoke();
         _canUse = true;
     }
 }

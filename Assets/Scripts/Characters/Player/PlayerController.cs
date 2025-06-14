@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnParry()
     {
-        _combatActions.Parry();
+        _abilities["parry"].TryUse();
     }
 
     protected virtual void Update()
