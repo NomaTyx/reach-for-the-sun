@@ -23,15 +23,26 @@ public class AbilityParry : AbilityBase
         //check only the projectile layer
         Collider[] colliders = Physics.OverlapSphere(transform.position, _parryRange);
 
+        int numberOfRockets = 0;
+
         foreach (Collider c in colliders)
         {
             c.TryGetComponent<Rocket>(out Rocket rocket);
 
             if (rocket != null)
             {
+                numberOfRockets++;
                 rocket.ParryProjectile();
             }
         }
-        base.Effect(doCooldown);
+
+        if (numberOfRockets != 0)
+        {
+            base.Effect(doCooldown);
+        }
+        else
+        {
+            CancelAbility();
+        }
     }
 }
