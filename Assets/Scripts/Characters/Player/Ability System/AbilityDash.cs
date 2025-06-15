@@ -14,6 +14,7 @@ public class AbilityDash : AbilityBase
     private float _dashForce = 100f;
     private float _dashTime = 0.5f;
     private float _dashCooldown = 1f;
+    private float _dashHitStopDuration = 0.1f;
     public override void Init()
     {
         base.Init();
@@ -64,6 +65,20 @@ public class AbilityDash : AbilityBase
         }
         _rb.linearVelocity = new Vector3(playerVelocity.x, 0, playerVelocity.z);
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Health hitHealth = other.GetComponent<Health>();
+        if (hitHealth)
+        {
+            if (IsActive)
+            {
+                hitHealth.Damage(new DamageInfo(hitHealth.Current, this.gameObject, hitHealth.gameObject));
+                TimeManager.Instance.HitStop(_dashHitStopDuration);
+                //TODO: add hitstop method here
+            }
+        }
     }
 
     private void StopDash()

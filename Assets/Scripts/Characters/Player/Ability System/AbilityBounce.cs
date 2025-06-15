@@ -25,6 +25,10 @@ public class AbilityBounce : AbilityBase
         cooldownWFS = new WaitForSecondsRealtime(CooldownDuration);
     }
 
+    /// <summary>
+    /// look for every enemy within bouncing range and deal damage to it. also propel with additional force per enemy
+    /// </summary>
+    //TODO: make this only check the enemy layer
     public override void Effect(bool doCooldown) 
     {
         float numOfEnemies = 0;

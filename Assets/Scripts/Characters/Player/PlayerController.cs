@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine;
@@ -22,20 +23,29 @@ public class PlayerController : MonoBehaviour
     protected Vector2 MoveInput { get; set; }
 
     //components
-    private PlayerCombatActions _combatActions;
     private Rigidbody _rb;
 
-    public Dictionary<string, AbilityBase> Abilities => _abilities;
-
     //ability stuff
+    public Dictionary<string, AbilityBase> Abilities => _abilities;
     private Dictionary<string, AbilityBase> _abilities = new Dictionary<string, AbilityBase>(); //using a string as key for testing, it's probably not the most optimal solution.
     private AbilityManager _abilityManager;
 
+    private Health _health;
+    public event Action OnPlayerDeath;
+
+    private void Awake()
+    {
+        _health = GetComponent<Health>();
+
+        _abilityManager = GetComponent<AbilityManager>();
+
+        _health.OnDamage += DamageBehavior;
+        _health.OnDeath += DeathBehavior;
+    }
 
     private void Start()
     {
         Cursor.lockState = CursorMode;
-        _combatActions = GetComponent<PlayerCombatActions>();
         _rb = GetComponent<Rigidbody>();
 
         _abilityManager = GetComponent<AbilityManager>();
@@ -71,5 +81,22 @@ public class PlayerController : MonoBehaviour
         {
             transform.LookAt(transform.position + new Vector3(_rb.linearVelocity.x, _rb.linearVelocity.y * _yWeight, _rb.linearVelocity.z));
         }
+    }
+
+    private void OnDestroy()
+    {
+        _health.OnDamage -= DamageBehavior;
+        _health.OnDeath -= DeathBehavior;
+    }
+
+    private void DamageBehavior(GameObject damagedObj)
+    {
+        Debug.Log("player took damage");
+    }
+
+    private void DeathBehavior(GameObject deadObj)
+    {
+        GetComponentInChildren<Shatterer>(true).gameObject.SetActive(true);
+        OnPlayerDeath?.Invoke();
     }
 }
