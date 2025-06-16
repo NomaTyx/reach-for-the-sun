@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorMode;
         _rb = GetComponent<Rigidbody>();
 
-        _abilityManager = GetComponent<AbilityManager>();
         _abilityManager.InitAbilities();
         _abilities = _abilityManager.Abilities;
     }

@@ -16,7 +16,7 @@ public class HUD : MonoBehaviour
 
     private Dictionary<string, GameObject> _abilityIcons = new Dictionary<string, GameObject>();
 
-    void Awake()
+    void Start()
     {
         player = GameManager.Instance.Player;
         _playerAbilities = player.gameObject.GetComponent<AbilityManager>();
