@@ -6,21 +6,19 @@ using UnityEngine;
 public class AbilityBase : MonoBehaviour
 {
     public string AbilityName;
-    public float CooldownDuration;
-    public float EffectDuration;
+    public float AbilityCooldownDuration;
+    public float AbilityEffectDuration;
 
     //used to check if an ability is active.
     public bool IsActive = false;
 
-    protected bool _canUse = true;
     protected GameObject _player;
 
     public event Action AbilityActivated;
     public event Action AbilityFinished;
     public event Action AbilityCanceled; //for example if you bounce while no enemies are in range. this may be a bandaid solution, we'll see
 
-    protected WaitForSecondsRealtime cooldownWFS;
-    //i'm probably going to create instances of all the abilities on start() of playercombatactions and add em to a list or smth
+    protected float _timeWhenAbilityNextUsable = 0;
 
     public virtual void Init()
     {
@@ -32,7 +30,7 @@ public class AbilityBase : MonoBehaviour
     /// </summary>
     public void TryUse()
     {
-        if (!_canUse) return;
+        if (_timeWhenAbilityNextUsable > Time.time) return;
 
         //check the player's list of abilities to see if one is active. can't interrupt an ability. 
         foreach (var a in _player.GetComponent<PlayerController>().Abilities)
@@ -40,8 +38,8 @@ public class AbilityBase : MonoBehaviour
             if (a.Value.IsActive) return;
         }
 
+        _timeWhenAbilityNextUsable = Time.time + AbilityCooldownDuration + AbilityEffectDuration;
         AbilityActivated?.Invoke();
-        _canUse = false;
         Effect(true);
     }
     //doCooldown feels ugly to me but it's the cleanest way i can think of to do cooldowns only sometimes.
@@ -53,26 +51,18 @@ public class AbilityBase : MonoBehaviour
     /// <param name="doCooldown"></param>
     public virtual void Effect(bool doCooldown)
     {
-        if (doCooldown)
-        {
-            StartCoroutine(Cooldown());
-            AbilityFinished?.Invoke();
-        }
-        Debug.Log("used ability");
-    }
-
-    //perhaps put this on the player and remove 
-    public IEnumerator Cooldown()
-    {
-        Debug.Log("cooling down" + AbilityName);
-        yield return cooldownWFS;
-        _canUse = true;
+        AbilityFinished?.Invoke();
+        if(!doCooldown) _timeWhenAbilityNextUsable -= AbilityCooldownDuration; //bit of a bandaid solution but i need to account for if the ability is used without cooldown
     }
 
     public void CancelAbility()
     {
         AbilityCanceled?.Invoke();
-        _canUse = true;
+    }
+
+    public void ResetCooldown()
+    {
+        _timeWhenAbilityNextUsable = Time.time;    
     }
 }
 

@@ -17,12 +17,10 @@ public class AbilityBounce : AbilityBase
         AbilityName = "Bounce";
         _rb = _player.GetComponent<Rigidbody>();
         //hardcoding cooldowns and durations for now, until i can decide where to store them
-        CooldownDuration = _bounceCooldown; 
-        EffectDuration = 0;
+        AbilityCooldownDuration = _bounceCooldown; 
+        AbilityEffectDuration = 0;
         _bounceCollider = _player.GetComponent<SphereCollider>();
         _bounceCollider.radius = _bounceRange;
-        
-        cooldownWFS = new WaitForSecondsRealtime(CooldownDuration);
     }
 
     /// <summary>

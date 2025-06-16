@@ -11,10 +11,8 @@ public class AbilityParry : AbilityBase
         base.Init();
         AbilityName = "Parry";
         //hardcoding cooldowns and durations for now, until i can decide where to store them
-        CooldownDuration = _parryCooldown;
-        EffectDuration = 0;
-
-        cooldownWFS = new WaitForSecondsRealtime(CooldownDuration);
+        AbilityCooldownDuration = _parryCooldown;
+        AbilityEffectDuration = 0;
     }
 
     // Update is called once per frame

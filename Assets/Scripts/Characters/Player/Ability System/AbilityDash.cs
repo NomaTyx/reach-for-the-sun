@@ -10,7 +10,7 @@ public class AbilityDash : AbilityBase
 
     private bool _isDashing;
 
-    //hardcoded values
+    //hardcoded values, these are only stored up here for readability
     private float _dashForce = 100f;
     private float _dashTime = 0.5f;
     private float _dashCooldown = 1f;
@@ -20,15 +20,13 @@ public class AbilityDash : AbilityBase
         base.Init();
         AbilityName = "Dash";
 
-        EffectDuration = _dashTime;
-        CooldownDuration = _dashCooldown;
+        AbilityEffectDuration = _dashTime;
+        AbilityCooldownDuration = _dashCooldown;
 
         _rb = _player.GetComponent<Rigidbody>();
         _dashCollider = _player.GetComponent<CapsuleCollider>();
         _bounceCollider = _player.GetComponent<SphereCollider>();
         _cameraTransform = GameManager.Instance.Camera.transform;
-
-        cooldownWFS = new WaitForSecondsRealtime(CooldownDuration);
     }
 
     public override void Effect(bool doCooldown)
@@ -54,7 +52,7 @@ public class AbilityDash : AbilityBase
         while (_isDashing)
         {
             _rb.linearVelocity = newDirection * _dashForce;
-            if (Time.time >= dashStartTime + EffectDuration)
+            if (Time.time >= dashStartTime + AbilityEffectDuration)
             {
                 StopDash();
                 IsActive = false;

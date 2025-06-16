@@ -27,6 +27,7 @@ public class CooldownBar : MonoBehaviour
         _fillBar.fillAmount = 1;
         ShowIfAbilityActive();
         StartCoroutine(CooldownFill());
+        Debug.Log("Component thinks cooldown is:" + _cooldownDuration);
     }
 
     private IEnumerator CooldownFill()
