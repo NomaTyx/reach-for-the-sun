@@ -19,7 +19,6 @@ public class AbilityManager : MonoBehaviour
         foreach (string key in _abilities.Keys)
         {
             _abilities[key].Init();
-            Debug.Log(_abilities[key].AbilityName);
         }
 
         AbilitiesInitiated?.Invoke();

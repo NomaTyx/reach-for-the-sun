@@ -7,16 +7,18 @@ public class EnemyController : MonoBehaviour
     private EnemyWeapon _weapon;
     private PlayerController _target;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnEnable()
     {
         _weapon = GetComponentInChildren<EnemyWeapon>();
         _health = GetComponent<Health>();
-        _target = GameManager.Instance.Player; //dunno if the enemy should track the player by its Health component but that's what makes sense to me?
 
         _health.OnDamage += DamageBehavior;
         _health.OnDeath += DeathBehavior;
+    }
 
+    private void Start()
+    {
+        _target = GameManager.Instance.Player;
         StartCoroutine(AggressiveState());
     }
 

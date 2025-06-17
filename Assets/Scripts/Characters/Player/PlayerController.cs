@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private Health _health;
     public event Action OnPlayerDeath;
 
-    private void Awake()
+    private void OnEnable()
     {
         _health = GetComponent<Health>();
 

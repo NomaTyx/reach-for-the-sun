@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public PlayerController Player;
     public Camera Camera;
 
+    //subscribe to these events in OnEnable
     private void Awake()
     {
         //caching player component for easy referencing

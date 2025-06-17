@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class HUD : MonoBehaviour
 {
-    [SerializeField] private CooldownBar _dashCooldownBar;
-    [SerializeField] private CooldownBar _parryCooldownBar;
-    [SerializeField] private CooldownBar _bounceCooldownBar;
-
     protected PlayerController player;
     protected AbilityManager _playerAbilities;
 
@@ -16,7 +12,7 @@ public class HUD : MonoBehaviour
 
     private Dictionary<string, GameObject> _abilityIcons = new Dictionary<string, GameObject>();
 
-    void Start()
+    void OnEnable()
     {
         player = GameManager.Instance.Player;
         _playerAbilities = player.gameObject.GetComponent<AbilityManager>();
@@ -41,6 +37,7 @@ public class HUD : MonoBehaviour
             a.AbilityCanceled += icon.GetComponent<CooldownBar>().ShowIfAbilityActive;
             icon.GetComponent<CooldownBar>().Init(a.AbilityCooldownDuration);
             _abilityIcons[a.AbilityName] = icon;
+            Debug.Log("ability");
         }
     }
 }

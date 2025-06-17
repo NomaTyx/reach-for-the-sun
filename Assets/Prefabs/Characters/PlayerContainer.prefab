@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7033825977790534169}
   - component: {fileID: 5700326199009346938}
   - component: {fileID: 4169645963660757610}
-  - component: {fileID: 7297847466513741557}
   - component: {fileID: 385529484325572172}
   - component: {fileID: 2678187021128506908}
   - component: {fileID: 3201994707075999131}
@@ -113,28 +112,6 @@ MonoBehaviour:
   _launchForce: 10
   _turnPlayer: 1
   _yWeight: 3
---- !u!114 &7297847466513741557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4802243369597645984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324fd3fce6ab3af4a8144848c74f0188, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bounceRange: 10
-  _bounceForce: 100
-  _bounceCooldown: 5
-  _dashTime: 0.2
-  _dashForce: 500
-  _dashCooldown: 0.5
-  _parryRange: 5
-  _parryCooldown: 1
-  _bounceBulletTimeModifier: 0.1
-  _dashHitStopDuration: 250
 --- !u!114 &385529484325572172
 MonoBehaviour:
   m_ObjectHideFlags: 0
