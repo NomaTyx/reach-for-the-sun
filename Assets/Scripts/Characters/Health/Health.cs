@@ -25,7 +25,6 @@ public class Health : MonoBehaviour
     {
         _currentHealth -= info.Amount;
 
-        Debug.Log($"victim: {info.Target.name} \n instigator: {info.Instigator.name}");
         OnDamage?.Invoke(gameObject);
 
         if(_currentHealth <= 0)
