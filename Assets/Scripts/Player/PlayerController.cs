@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public Dictionary<string, AbilityBase> Abilities => _abilities;
     private Dictionary<string, AbilityBase> _abilities = new Dictionary<string, AbilityBase>(); //using a string as key for testing, it's probably not the most optimal solution.
     private AbilityManager _abilityManager;
+    private PlayerGlide _glide;
 
     private Health _health;
     public event Action OnPlayerDeath;
@@ -36,8 +38,8 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _health = GetComponent<Health>();
-
         _abilityManager = GetComponent<AbilityManager>();
+        _glide = GetComponent<PlayerGlide>();
 
         _health.OnDamage += DamageBehavior;
         _health.OnDeath += DeathBehavior;
@@ -50,6 +52,11 @@ public class PlayerController : MonoBehaviour
 
         _abilityManager.InitAbilities();
         _abilities = _abilityManager.Abilities;
+    }
+
+    public void OnMove(InputValue value)
+    {
+        _glide.SetMoveInput(value.Get<Vector2>());
     }
 
     //placeholder method
