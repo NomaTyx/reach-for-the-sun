@@ -37,7 +37,6 @@ public class HUD : MonoBehaviour
             a.AbilityCanceled += icon.GetComponent<CooldownBar>().ShowIfAbilityActive;
             icon.GetComponent<CooldownBar>().Init(a.AbilityCooldownDuration);
             _abilityIcons[a.AbilityName] = icon;
-            Debug.Log("ability");
         }
     }
 }
