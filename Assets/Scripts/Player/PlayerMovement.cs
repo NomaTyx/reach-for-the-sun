@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerGlide : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     private Vector2 _movementDirection;
 
@@ -11,6 +11,9 @@ public class PlayerGlide : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_movementDirection.ToString());
+        if(_movementDirection != Vector2.zero)
+        {
+            GetComponent<Rigidbody>().mass = 0.01f;
+        }
     }
 }

@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public Dictionary<string, AbilityBase> Abilities => _abilities;
     private Dictionary<string, AbilityBase> _abilities = new Dictionary<string, AbilityBase>(); //using a string as key for testing, it's probably not the most optimal solution.
     private AbilityManager _abilityManager;
-    private PlayerGlide _glide;
+    private PlayerMovement _glide;
 
     private Health _health;
     public event Action OnPlayerDeath;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         _health = GetComponent<Health>();
         _abilityManager = GetComponent<AbilityManager>();
-        _glide = GetComponent<PlayerGlide>();
+        _glide = GetComponent<PlayerMovement>();
 
         _health.OnDamage += DamageBehavior;
         _health.OnDeath += DeathBehavior;
