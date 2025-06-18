@@ -10,9 +10,6 @@ public class SceneHandler : MonoBehaviour
 
     public static SceneHandler Instance => _instance;
 
-    [SerializeField] private Animator _transition;
-    [SerializeField] private float _transitionTime = 1;
-
     private string _sceneName;
 
     private void Start()

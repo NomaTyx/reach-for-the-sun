@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
-    [SerializeField] private float _parriedProjectileLifetime = 1f;
     private GameObject _target;
     private DamageInfo _damageInfo;
     private float _speed;
