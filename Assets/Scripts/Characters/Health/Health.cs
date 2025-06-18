@@ -40,11 +40,4 @@ public class Health : MonoBehaviour
     {
 
     }
-
-    [ContextMenu("Damage test")]
-    public void DamageTest()
-    {
-        DamageInfo info = new DamageInfo(_maxHealth * (_damageTestPercent / 100), gameObject, gameObject);
-        Damage(info);
-    }
 }
