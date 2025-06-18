@@ -10,14 +10,12 @@ public class PlayerMovement : MonoBehaviour
     public bool DoGravity => _doGravity;
     
     private Vector2 _movementDirection;
-    private Vector3 _zeroYVelocity;
     private Rigidbody _rb;
 
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _zeroYVelocity = Vector3.zero;
     }
 
     public void SetMoveInput(Vector2 moveInput)
@@ -26,10 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_movementDirection != Vector2.zero)
         {
-            _zeroYVelocity.z = _rb.linearVelocity.z;
-            _zeroYVelocity.x = _rb.linearVelocity.x; //garbage collection purposes, this is probably cheaper than making a new object every single time
-
-            _rb.linearVelocity = _zeroYVelocity;
+            _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
             _gravityScaleFactor = 1f;
         }
         else
