@@ -12,7 +12,7 @@ public class HUD : MonoBehaviour
 
     private Dictionary<string, GameObject> _abilityIcons = new Dictionary<string, GameObject>();
 
-    void OnEnable()
+    void Start()
     {
         player = GameManager.Instance.Player;
         _playerAbilities = player.gameObject.GetComponent<AbilityManager>();
@@ -22,7 +22,6 @@ public class HUD : MonoBehaviour
 
     private void OnDestroy()
     {
-
         _playerAbilities.AbilitiesInitiated -= OnAbilitiesInitiated;
     }
 

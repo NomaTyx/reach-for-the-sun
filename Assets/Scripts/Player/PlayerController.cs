@@ -37,16 +37,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        
+    }
+
+    private void Start()
+    {
         _health = GetComponent<Health>();
         _abilityManager = GetComponent<AbilityManager>();
         _glide = GetComponent<PlayerMovement>();
 
         _health.OnDamage += DamageBehavior;
         _health.OnDeath += DeathBehavior;
-    }
 
-    private void Start()
-    {
         Cursor.lockState = CursorMode;
         _rb = GetComponent<Rigidbody>();
 
