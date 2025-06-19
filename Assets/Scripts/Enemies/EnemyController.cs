@@ -9,15 +9,17 @@ public class EnemyController : MonoBehaviour
 
     void OnEnable()
     {
+        
+    }
+
+    private void Start()
+    {
         _weapon = GetComponentInChildren<EnemyWeapon>();
         _health = GetComponent<Health>();
 
         _health.OnDamage += DamageBehavior;
         _health.OnDeath += DeathBehavior;
-    }
 
-    private void Start()
-    {
         _target = GameManager.Instance.Player;
         StartCoroutine(AggressiveState());
     }

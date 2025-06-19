@@ -15,12 +15,13 @@ public class GameManager : MonoBehaviour
     public PlayerController Player;
     public Camera Camera;
 
-    //subscribe to these events in OnEnable
+    //subscribe to these events in Start
     private void Awake()
     {
         //caching player component for easy referencing
         Player = FindFirstObjectByType<PlayerController>();
         Camera = FindFirstObjectByType<Camera>();
+        Debug.Log("gamemanager");
 
         if (Instance != null)
         {

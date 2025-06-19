@@ -6,8 +6,13 @@ public class PlayerMovement : MonoBehaviour
     //make sure defaultgravity stays negative
     private float _defaultGravity = -9.81f; //picked arbitrarily based on real world physics. whatever
     private float _gravityScaleFactor = 10f;
+
+    private float _glideSpeed = 5f;
+
     private bool _doGravity = true;
+    private bool _doMovement = true;
     public bool DoGravity => _doGravity;
+    public bool DoMovement => _doMovement;
     
     private Vector2 _movementDirection;
     private Rigidbody _rb;
@@ -25,11 +30,11 @@ public class PlayerMovement : MonoBehaviour
         if (_movementDirection != Vector2.zero)
         {
             _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
-            _gravityScaleFactor = 1f;
+            _gravityScaleFactor = 0.1f;
         }
         else
         {
-            _gravityScaleFactor = 10f;
+            _gravityScaleFactor = 1f;
         }
     }
 
@@ -39,6 +44,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 gravity = _defaultGravity * _gravityScaleFactor * Vector3.up;
             _rb.AddForce(gravity, ForceMode.Acceleration);
+        }
+        if (_doMovement)
+        {
+            float xVelocity = _movementDirection.x * _glideSpeed;
+            float zVelocity = _movementDirection.y * _glideSpeed;
+            _rb.linearVelocity = new Vector3(xVelocity, _rb.linearVelocity.y, zVelocity);
         }
     }
 }
