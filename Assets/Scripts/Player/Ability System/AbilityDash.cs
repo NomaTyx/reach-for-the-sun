@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AbilityDash : AbilityBase
@@ -57,14 +58,14 @@ public class AbilityDash : AbilityBase
             if (Time.time >= dashStartTime + AbilityEffectDuration)
             {
                 StopDash();
-                IsActive = false;
-                base.Effect(doCooldown); 
-                break;
             }
             yield return null;
         }
 
         _rb.linearVelocity = new Vector3(playerVelocity.x, 0, playerVelocity.z);
+
+        IsActive = false;
+        base.Effect(doCooldown);
     }
 
     private void OnTriggerEnter(Collider other)
