@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -40,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
             _gravityScaleFactor = 0.1f;
-            transform.LookAt(new Vector3(Camera.main.transform.forward.x, 0f, Camera.main.transform.forward.z));
         }
         else
         {
@@ -54,14 +54,13 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 gravity = _defaultGravity * _gravityScaleFactor * Vector3.up;
             _rb.AddForce(gravity, ForceMode.Acceleration);
-            Debug.Log(_rb.linearVelocity.y);
         }
 
-        if (_doGliding)
+        if (_doGliding && _movementDirection != Vector2.zero)
         {
-            float xVelocity = _movementDirection.x * _glideSpeed;
-            float zVelocity = _movementDirection.y * _glideSpeed;
-            _rb.linearVelocity = new Vector3(xVelocity, _rb.linearVelocity.y, zVelocity);
+            Vector3 glideDirection = new Vector3(_movementDirection.x, 0, _movementDirection.y);
+            glideDirection = Camera.main.transform.TransformDirection(glideDirection);
+            _rb.linearVelocity = glideDirection.normalized * _glideSpeed;
         }
 
         if (_turnPlayer)
