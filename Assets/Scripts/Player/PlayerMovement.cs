@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     //make sure defaultgravity stays negative
     private float _defaultGravity = -9.81f; //picked arbitrarily based on real world physics. whatever
     private float _gravityScaleFactor = 1f;
+    private float _defaultGravityScaleFactor = 1f;
+    private float _glideGravityScaleFactor = 0.1f;
 
     private float _terminalDirectionalVelocity; //unused so far, just adding for posterity
     private float _terminalDownwardsVelocity = -75f;
@@ -39,12 +41,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (_movementDirection != Vector2.zero)
         {
-            _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
-            _gravityScaleFactor = 0.1f;
+            if(_gravityScaleFactor != _glideGravityScaleFactor) 
+            {
+                _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
+                _gravityScaleFactor = _glideGravityScaleFactor;
+            }
         }
         else
         {
-            _gravityScaleFactor = 1f;
+            _gravityScaleFactor = _defaultGravityScaleFactor;
         }
     }
 
@@ -60,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 glideDirection = new Vector3(_movementDirection.x, 0, _movementDirection.y);
             glideDirection = Camera.main.transform.TransformDirection(glideDirection);
-            _rb.linearVelocity = glideDirection.normalized * _glideSpeed;
+            _rb.linearVelocity = new Vector3(glideDirection.normalized.x * _glideSpeed, _rb.linearVelocity.y, glideDirection.normalized.z * _glideSpeed);
         }
 
         if (_turnPlayer)
