@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour
 
     private float _glideSpeed = 5f;
 
+    [Header("Player Turning")]
+    [SerializeField] private bool _turnPlayer = true;
+    [SerializeField] private float _yWeight = 3;
+
     private bool _doGravity = true;
     private bool _doGliding = true;
     public bool DoGravity => _doGravity;
@@ -36,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
             _gravityScaleFactor = 0.1f;
+            transform.LookAt(new Vector3(Camera.main.transform.forward.x, 0f, Camera.main.transform.forward.z));
         }
         else
         {
@@ -51,11 +56,17 @@ public class PlayerMovement : MonoBehaviour
             _rb.AddForce(gravity, ForceMode.Acceleration);
             Debug.Log(_rb.linearVelocity.y);
         }
+
         if (_doGliding)
         {
             float xVelocity = _movementDirection.x * _glideSpeed;
             float zVelocity = _movementDirection.y * _glideSpeed;
             _rb.linearVelocity = new Vector3(xVelocity, _rb.linearVelocity.y, zVelocity);
+        }
+
+        if (_turnPlayer)
+        {
+            transform.LookAt(transform.position + new Vector3(_rb.linearVelocity.x, _rb.linearVelocity.y * _yWeight, _rb.linearVelocity.z));
         }
     }
 

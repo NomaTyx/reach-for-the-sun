@@ -17,10 +17,6 @@ public class PlayerController : MonoBehaviour
     [field: Header("Componenents")]
     private Transform _cameraTransform;
 
-    [Header("Player Turning")]
-    [SerializeField] private bool _turnPlayer = true;
-    [SerializeField] private float _yWeight = 3;
-
     protected Vector2 MoveInput { get; set; }
 
     //components
@@ -81,14 +77,6 @@ public class PlayerController : MonoBehaviour
     public void OnParry()
     {
         _abilities["parry"].TryUse();
-    }
-
-    protected virtual void Update()
-    {
-        if (_turnPlayer)
-        {
-            transform.LookAt(transform.position + new Vector3(_rb.linearVelocity.x, _rb.linearVelocity.y * _yWeight, _rb.linearVelocity.z));
-        }
     }
 
     private void OnDestroy()
