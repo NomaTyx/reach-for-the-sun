@@ -84,6 +84,7 @@ public class AbilityDash : AbilityBase
 
     private void StopDash()
     {
+        if (!_isDashing) return;
         _isDashing = false;
         _dashCollider.enabled = false;
         _bounceCollider.enabled = true;
