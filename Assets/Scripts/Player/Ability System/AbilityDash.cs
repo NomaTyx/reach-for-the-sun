@@ -46,8 +46,10 @@ public class AbilityDash : AbilityBase
         _dashCollider.enabled = true;
         _bounceCollider.enabled = false;
 
-        _rb.useGravity = false;
         _isDashing = true;
+
+        _player.GetComponent<PlayerMovement>().ToggleGravity();
+        _player.GetComponent<PlayerMovement>().ToggleGliding();
 
         while (_isDashing)
         {
@@ -61,8 +63,8 @@ public class AbilityDash : AbilityBase
             }
             yield return null;
         }
-        _rb.linearVelocity = new Vector3(playerVelocity.x, 0, playerVelocity.z);
 
+        _rb.linearVelocity = new Vector3(playerVelocity.x, 0, playerVelocity.z);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -74,7 +76,7 @@ public class AbilityDash : AbilityBase
             {
                 hitHealth.Damage(new DamageInfo(hitHealth.Current, this.gameObject, hitHealth.gameObject));
                 TimeManager.Instance.HitStop(_dashHitStopDuration);
-                //TODO: add hitstop method here
+                StopDash();
             }
         }
     }
@@ -82,8 +84,9 @@ public class AbilityDash : AbilityBase
     private void StopDash()
     {
         _isDashing = false;
-        _rb.useGravity = true;
         _dashCollider.enabled = false;
         _bounceCollider.enabled = true;
+        _player.GetComponent<PlayerMovement>().ToggleGravity();
+        _player.GetComponent<PlayerMovement>().ToggleGliding();
     }
 }

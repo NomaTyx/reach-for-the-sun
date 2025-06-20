@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
         //caching player component for easy referencing
         Player = FindFirstObjectByType<PlayerController>();
         Camera = FindFirstObjectByType<Camera>();
-        Debug.Log("gamemanager");
 
         if (Instance != null)
         {
