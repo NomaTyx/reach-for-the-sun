@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
     private float _defaultGravity = -9.81f; //picked arbitrarily based on real world physics. whatever
     private float _gravityScaleFactor = 10f;
 
+    private float _terminalXZVelocity; //unused so far, just adding for posterity
+    private float _terminalYVelocity = 10f;
+
     private float _glideSpeed = 5f;
 
     private bool _doGravity = true;
@@ -40,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_doGravity)
+        if (_doGravity && _rb.linearVelocity.y < _terminalYVelocity)
         {
             Vector3 gravity = _defaultGravity * _gravityScaleFactor * Vector3.up;
             _rb.AddForce(gravity, ForceMode.Acceleration);
