@@ -55,10 +55,12 @@ public class AbilityDash : AbilityBase
         while (_isDashing)
         {
             _rb.linearVelocity = newDirection * _dashForce;
+
             if (Time.time >= dashStartTime + AbilityEffectDuration)
             {
                 StopDash();
             }
+
             yield return null;
         }
 
@@ -68,6 +70,7 @@ public class AbilityDash : AbilityBase
         base.Effect(doCooldown);
     }
 
+    //this is where the damage for dash is handled
     private void OnTriggerEnter(Collider other)
     {
         Health hitHealth = other.GetComponent<Health>();
@@ -81,7 +84,10 @@ public class AbilityDash : AbilityBase
             }
         }
     }
-
+    
+    /// <summary>
+    /// end dash instantly
+    /// </summary>
     private void StopDash()
     {
         if (!_isDashing) return;
