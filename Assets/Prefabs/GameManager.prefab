@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1281671735625140879}
   - component: {fileID: 7546567527144580409}
   - component: {fileID: 5798426299822742468}
+  - component: {fileID: 7453508539588971698}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,7 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Camera: {fileID: 0}
-  AbilityData: {fileID: 11400000, guid: 37bbad228b259fb48acebc9889fb3ff4, type: 2}
 --- !u!114 &7546567527144580409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,5 +73,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5839a46a62bc1fa4c9fa0aed645b9165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transition: {fileID: 0}
-  _transitionTime: 1
+--- !u!114 &7453508539588971698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3103444421390272856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a40989445cf4614f9de35ab60c17c2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
