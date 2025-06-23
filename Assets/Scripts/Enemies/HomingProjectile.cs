@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Rocket : MonoBehaviour
+public class HomingProjectile : MonoBehaviour
 {
     private GameObject _target;
     private DamageInfo _damageInfo;

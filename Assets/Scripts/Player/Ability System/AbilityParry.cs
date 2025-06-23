@@ -25,7 +25,7 @@ public class AbilityParry : AbilityBase
 
         foreach (Collider c in colliders)
         {
-            c.TryGetComponent<Rocket>(out Rocket rocket);
+            c.TryGetComponent<HomingProjectile>(out HomingProjectile rocket);
 
             if (rocket != null)
             {
