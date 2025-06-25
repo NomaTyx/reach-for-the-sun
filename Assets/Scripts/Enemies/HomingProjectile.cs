@@ -19,6 +19,11 @@ public class HomingProjectile : MonoBehaviour
         _speed = speed;
     }
 
+    private void OnDestroy()
+    {
+        EnemyAIManager.Instance.RegisterDestroyedBullet();
+    }
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();

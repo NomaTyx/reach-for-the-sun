@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RocketLauncher : EnemyWeapon
+public class HomingProjectileWeapon : EnemyWeapon
 {
     [SerializeField] private GameObject _projectile;
     [SerializeField] private float _projectileDamage = 1;
@@ -11,5 +11,6 @@ public class RocketLauncher : EnemyWeapon
     {
         HomingProjectile proj = Instantiate(_projectile, transform.position, Quaternion.identity).GetComponent<HomingProjectile>();
         proj.Init(target, new DamageInfo(_projectileDamage, instigator, target), _projectileSpeed);
+        EnemyAIManager.Instance.RegisterSpawnedBullet();
     }
 }
