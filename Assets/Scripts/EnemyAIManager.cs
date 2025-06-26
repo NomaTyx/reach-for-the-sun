@@ -6,6 +6,7 @@ public class EnemyAIManager : MonoBehaviour
     public static EnemyAIManager Instance;
     private List<EnemyController> _enemiesInScene = new List<EnemyController>();
     private int _numOfActiveBullets = 0;
+    private int _maxActiveBullets = 5;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,9 +24,14 @@ public class EnemyAIManager : MonoBehaviour
         }
     }
 
-    public void RegisterSpawnedBullet()
+    public bool TryRegisterSpawnedBullet()
     {
-        _numOfActiveBullets++;
+        if (_numOfActiveBullets < _maxActiveBullets)
+        {
+            _numOfActiveBullets++;
+            return true;
+        }
+        return false;
     }
 
     public void RegisterDestroyedBullet()

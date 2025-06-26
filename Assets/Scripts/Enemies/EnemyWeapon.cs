@@ -9,6 +9,7 @@ public class EnemyWeapon : MonoBehaviour
     [SerializeField] private float tempVar_AttackCooldown = 1f;
 
     private float _lastAttackTime;
+    protected bool _projectileWeapon;
 
     private void Start()
     {
