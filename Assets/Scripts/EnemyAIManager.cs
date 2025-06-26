@@ -19,7 +19,8 @@ public class EnemyAIManager : MonoBehaviour
 
         Instance = this;
 
-        foreach (EnemyController enemy in FindObjectsByType<EnemyController>(FindObjectsSortMode.None)) {
+        foreach (EnemyController enemy in FindObjectsByType<EnemyController>(FindObjectsSortMode.None)) 
+        {
             _enemiesInScene.Add(enemy);
         }
     }
@@ -29,8 +30,10 @@ public class EnemyAIManager : MonoBehaviour
         if (_numOfActiveBullets < _maxActiveBullets)
         {
             _numOfActiveBullets++;
+            Debug.Log(_numOfActiveBullets);
             return true;
         }
+        Debug.Log(_numOfActiveBullets);
         return false;
     }
 
