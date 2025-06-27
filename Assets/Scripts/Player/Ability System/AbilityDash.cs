@@ -15,7 +15,7 @@ public class AbilityDash : AbilityBase
     private float _dashForce = 100f;
     private float _dashTime = 0.5f;
     private float _dashCooldown = 1f;
-    private float _dashHitStopDuration = 0.1f;
+    private float _dashHitStopDuration = 0.25f;
     public override void Init()
     {
         base.Init();

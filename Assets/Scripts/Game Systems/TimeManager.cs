@@ -38,13 +38,13 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    private IEnumerator HitStopCoroutine(float durationMilliseconds)
+    private IEnumerator HitStopCoroutine(float durationSeconds)
     {
         float previousTimeScale = Time.timeScale;
         Time.timeScale = 0;
 
         Debug.Log("hitstopped");
-        yield return new WaitForSecondsRealtime(durationMilliseconds / 1000);
+        yield return new WaitForSecondsRealtime(durationSeconds);
 
         if(!_gamePaused)
         {
