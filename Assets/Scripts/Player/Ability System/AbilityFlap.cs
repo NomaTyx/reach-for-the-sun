@@ -3,7 +3,7 @@ using UnityEngine;
 public class AbilityFlap : AbilityBase
 {
     //hardcoded values for now
-    private float _flapForce = 100f;
+    private float _flapForce = 10f;
     private float _flapCooldown = 5f;
     
     private Rigidbody _rb;

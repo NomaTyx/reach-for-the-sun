@@ -40,8 +40,10 @@ public class AbilityBase : MonoBehaviour
 
         _timeWhenAbilityNextUsable = Time.time + AbilityCooldownDuration + AbilityEffectDuration;
         AbilityActivated?.Invoke();
+        _player.GetComponent<PlayerMovement>().SetGliding(false);
         Effect(true);
     }
+
     //doCooldown feels ugly to me but it's the cleanest way i can think of to do cooldowns only sometimes.
     //and i won't do cooldown if Effect is called by something else. Say there's an ability that lets you dash three times in a row, for example.
     //note to self: you can override as many times as you would like.
@@ -51,12 +53,14 @@ public class AbilityBase : MonoBehaviour
     /// <param name="doCooldown"></param>
     public virtual void Effect(bool doCooldown)
     {
+        _player.GetComponent<PlayerMovement>().SetGliding(true);
         AbilityFinished?.Invoke();
         if(!doCooldown) _timeWhenAbilityNextUsable -= AbilityCooldownDuration; //bit of a bandaid solution but i need to account for if the ability is used without cooldown
     }
 
     public void CancelAbility()
     {
+        _player.GetComponent<PlayerMovement>().SetGliding(true);
         AbilityCanceled?.Invoke();
     }
 

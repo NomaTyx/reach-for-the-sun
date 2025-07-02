@@ -49,8 +49,7 @@ public class AbilityDash : AbilityBase
 
         _isDashing = true;
 
-        _player.GetComponent<PlayerMovement>().ToggleGravity();
-        _player.GetComponent<PlayerMovement>().ToggleGliding();
+        _player.GetComponent<PlayerMovement>().SetGravity(false);
 
         while (_isDashing)
         {
@@ -94,7 +93,6 @@ public class AbilityDash : AbilityBase
         _isDashing = false;
         _dashCollider.enabled = false;
         _bounceCollider.enabled = true;
-        _player.GetComponent<PlayerMovement>().ToggleGravity();
-        _player.GetComponent<PlayerMovement>().ToggleGliding();
+        _player.GetComponent<PlayerMovement>().SetGravity(true);
     }
 }
