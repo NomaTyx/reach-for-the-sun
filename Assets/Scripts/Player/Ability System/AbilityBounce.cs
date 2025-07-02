@@ -26,11 +26,11 @@ public class AbilityBounce : AbilityBase
     /// <summary>
     /// look for every enemy within bouncing range and deal damage to it. also propel with additional force per enemy
     /// </summary>
-    //TODO: make this only check the enemy layer
     public override void Effect(bool doCooldown) 
     {
         float numOfEnemies = 0;
 
+        //TODO: make this only check the enemy layer
         foreach (Collider c in Physics.OverlapSphere(transform.position, 10))
         {
             Health hitHealth = c.GetComponent<Health>();
