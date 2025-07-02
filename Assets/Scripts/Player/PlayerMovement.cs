@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private float _defaultGravity = -9.81f; //picked arbitrarily based on real world physics. whatever
     private float _gravityScaleFactor = 1f;
     private float _defaultGravityScaleFactor = 1f;
-    private float _glideGravityScaleFactor = 0.25f;
+    private float _glideGravityScaleFactor = 0.1f;
 
     private float _terminalDirectionalVelocity; //unused so far, just adding for posterity
     private float _terminalDownwardsVelocity = -75f;
