@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     {
         //caching player component for easy referencing
         Player = FindFirstObjectByType<PlayerController>();
-        Camera = FindFirstObjectByType<Camera>();
 
         if (Instance != null)
         {

@@ -2,15 +2,7 @@ using UnityEngine;
 
 public class AbilityZip : AbilityBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private float _zipForce = 10f;
+    
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
