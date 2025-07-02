@@ -31,11 +31,6 @@ public class PlayerController : MonoBehaviour
     private Health _health;
     public event Action OnPlayerDeath;
 
-    private void OnEnable()
-    {
-        
-    }
-
     private void Start()
     {
         _health = GetComponent<Health>();
@@ -77,6 +72,11 @@ public class PlayerController : MonoBehaviour
     public void OnParry()
     {
         _abilities["parry"].TryUse();
+    }
+
+    public void OnFlap()
+    {
+        _abilities["flap"].TryUse();
     }
 
     private void OnDestroy()
