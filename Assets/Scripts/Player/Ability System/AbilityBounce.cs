@@ -5,7 +5,7 @@ public class AbilityBounce : AbilityBase
 {
     //hardcoded values for now
     private float _bounceRange = 10;
-    private float _bounceForce = 200;
+    private float _bounceForce = 20;
     private float _bounceCooldown = 2f;
 
     private SphereCollider _bounceCollider;
