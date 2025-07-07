@@ -6,6 +6,8 @@ public class AbilityParry : AbilityBase
     private float _parryCooldown = 2f;
     private float _parryRange = 5f;
 
+    private Rigidbody _rb;
+
     public override void Init()
     {
         base.Init();
@@ -13,6 +15,8 @@ public class AbilityParry : AbilityBase
         //hardcoding cooldowns and durations for now, until i can decide where to store them
         AbilityCooldownDuration = _parryCooldown;
         AbilityEffectDuration = 0;
+
+        _rb = GameManager.Instance.Player.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

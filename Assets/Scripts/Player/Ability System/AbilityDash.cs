@@ -20,7 +20,6 @@ public class AbilityDash : AbilityBase
     {
         base.Init();
         AbilityName = "Dash";
-
         AbilityEffectDuration = _dashTime;
         AbilityCooldownDuration = _dashCooldown;
 

@@ -12,9 +12,10 @@ public class AbilityFlap : AbilityBase
     {
         base.Init();
         AbilityName = "Flap";
-        _rb = _player.GetComponent<Rigidbody>();
         AbilityCooldownDuration = _flapCooldown;
         AbilityEffectDuration = 0;
+
+        _rb = _player.GetComponent<Rigidbody>();
     }
 
     public override void Effect(bool doCooldown)
