@@ -10,7 +10,7 @@ public class HUD : MonoBehaviour
 
     [SerializeField] private GameObject AbilityIconTemplate;
 
-    private Dictionary<string, GameObject> _abilityIcons = new Dictionary<string, GameObject>();
+    private Dictionary<string, CooldownBar> _abilityIcons = new Dictionary<string, CooldownBar>();
 
     void Start()
     {
@@ -29,12 +29,14 @@ public class HUD : MonoBehaviour
     {
         foreach (AbilityBase a in _playerAbilities.Abilities.Values)
         {
-            GameObject icon = Instantiate(AbilityIconTemplate, gameObject.transform);
-            icon.GetComponentInChildren<TextMeshProUGUI>().text = a.AbilityName;
-            a.AbilityActivated += icon.GetComponent<CooldownBar>().ShowIfAbilityActive;
-            a.AbilityFinished += icon.GetComponent<CooldownBar>().StartCooldown;
-            a.AbilityCanceled += icon.GetComponent<CooldownBar>().ShowIfAbilityActive;
-            icon.GetComponent<CooldownBar>().Init(a.AbilityCooldownDuration);
+            CooldownBar icon = Instantiate(AbilityIconTemplate, gameObject.transform).GetComponent<CooldownBar>();
+
+            a.AbilityActivated += icon.ShowIfAbilityActive;
+            a.AbilityFinished += icon.StartCooldown;
+            a.AbilityCanceled += icon.ShowIfAbilityActive;
+
+            icon.Init(a);
+
             _abilityIcons[a.AbilityName] = icon;
         }
     }

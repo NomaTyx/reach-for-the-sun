@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +12,10 @@ public class CooldownBar : MonoBehaviour
     private float _cooldownStartTime;
     private float _cooldownDuration;
 
-    public void Init(float cooldownDuration)
+    public void Init(AbilityBase ability)
     {
-        _cooldownDuration = cooldownDuration;
+        _cooldownDuration = ability.AbilityCooldownDuration;
+        GetComponentInChildren<TextMeshProUGUI>().text = ability.AbilityName;
     }
 
     public void ShowIfAbilityActive()
