@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class AbilityParry : AbilityBase
 {
@@ -41,10 +40,9 @@ public class AbilityParry : AbilityBase
         if (numberOfRockets != 0)
         {
             base.Effect(doCooldown);
+            //propel player per thing parried.
+            return;
         }
-        else
-        {
-            CancelAbility();
-        }
+        CancelAbility();
     }
 }
