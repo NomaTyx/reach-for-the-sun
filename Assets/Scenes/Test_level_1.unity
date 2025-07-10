@@ -1240,10 +1240,6 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 360616135365652479, guid: 000aa3dc98609db41bf10bb3d3b554db, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2678187021128506908, guid: 000aa3dc98609db41bf10bb3d3b554db, type: 3}
       propertyPath: _maxHealth
       value: 9999999

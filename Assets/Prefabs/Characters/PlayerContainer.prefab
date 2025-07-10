@@ -111,8 +111,6 @@ MonoBehaviour:
   <CursorMode>k__BackingField: 1
   <LookInCameraDirection>k__BackingField: 0
   _launchForce: 10
-  _turnPlayer: 1
-  _yWeight: 3
 --- !u!114 &7403258308114662591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b5d37876f3fe14b8196c2423123aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _turnPlayer: 1
+  _yWeight: 3
 --- !u!114 &385529484325572172
 MonoBehaviour:
   m_ObjectHideFlags: 0
