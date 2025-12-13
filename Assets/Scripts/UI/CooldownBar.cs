@@ -12,7 +12,7 @@ public class CooldownBar : MonoBehaviour
     private float _cooldownStartTime;
     private float _cooldownDuration;
 
-    public void Init(AbilityBase ability)
+    public void Init(Ability ability)
     {
         _cooldownDuration = ability.AbilityCooldownDuration;
         GetComponentInChildren<TextMeshProUGUI>().text = ability.AbilityName;

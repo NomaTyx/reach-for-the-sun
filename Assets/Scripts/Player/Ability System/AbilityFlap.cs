@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AbilityFlap : AbilityBase
+public class AbilityFlap : Ability
 {
     //hardcoded values for now
     private float _flapForce = 10f;

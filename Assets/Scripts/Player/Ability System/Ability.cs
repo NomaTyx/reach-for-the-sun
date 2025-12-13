@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class AbilityBase : MonoBehaviour
+public class Ability : MonoBehaviour
 {
     public string AbilityName;
     public float AbilityCooldownDuration;

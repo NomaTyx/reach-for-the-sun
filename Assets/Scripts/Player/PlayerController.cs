@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
 
     //ability stuff
-    public Dictionary<string, AbilityBase> Abilities => _abilities;
-    private Dictionary<string, AbilityBase> _abilities = new Dictionary<string, AbilityBase>(); //using a string as key for testing, it's probably not the most optimal solution.
+    public Dictionary<string, Ability> Abilities => _abilities;
+    private Dictionary<string, Ability> _abilities = new Dictionary<string, Ability>(); //using a string as key for testing, it's probably not the most optimal solution.
     private AbilityManager _abilityManager;
     private PlayerMovement _glide;
 

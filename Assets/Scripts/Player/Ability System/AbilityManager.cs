@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AbilityManager : MonoBehaviour
 {
-    public Dictionary<string, AbilityBase> Abilities => _abilities;
+    public Dictionary<string, Ability> Abilities => _abilities;
 
-    private Dictionary<string, AbilityBase> _abilities = new Dictionary<string, AbilityBase>();
+    private Dictionary<string, Ability> _abilities = new Dictionary<string, Ability>();
     public event Action AbilitiesInitiated;
 
     public void InitAbilities()

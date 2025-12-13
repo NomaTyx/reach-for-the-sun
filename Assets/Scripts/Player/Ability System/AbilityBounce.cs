@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class AbilityBounce : AbilityBase
+public class AbilityBounce : Ability
 {
     //hardcoded values for now
     private float _bounceRange = 10;

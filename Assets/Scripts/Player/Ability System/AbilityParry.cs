@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AbilityParry : AbilityBase
+public class AbilityParry : Ability
 {
     private float _parryCooldown = 2f;
     private float _parryRange = 5f;

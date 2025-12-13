@@ -27,7 +27,7 @@ public class HUD : MonoBehaviour
 
     private void OnAbilitiesInitiated()
     {
-        foreach (AbilityBase a in _playerAbilities.Abilities.Values)
+        foreach (Ability a in _playerAbilities.Abilities.Values)
         {
             CooldownBar icon = Instantiate(AbilityIconTemplate, gameObject.transform).GetComponent<CooldownBar>();
 

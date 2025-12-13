@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class AbilityDash : AbilityBase
+public class AbilityDash : Ability
 {
     private Rigidbody _rb;
     private CapsuleCollider _dashCollider;
