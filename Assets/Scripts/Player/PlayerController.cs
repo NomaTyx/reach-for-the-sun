@@ -26,7 +26,9 @@ public class PlayerController : MonoBehaviour
     public Dictionary<string, Ability> Abilities => _abilities;
     private Dictionary<string, Ability> _abilities = new Dictionary<string, Ability>(); //using a string as key for testing, it's probably not the most optimal solution.
     private AbilityManager _abilityManager;
-    private PlayerMovement _glide;
+
+    private PlayerMovement _playerMovement;
+    private PlayerAnimations _playerAnimations;
 
     private Health _health;
     public event Action OnPlayerDeath;
@@ -35,7 +37,8 @@ public class PlayerController : MonoBehaviour
     {
         _health = GetComponent<Health>();
         _abilityManager = GetComponent<AbilityManager>();
-        _glide = GetComponent<PlayerMovement>();
+        _playerMovement = GetComponent<PlayerMovement>();
+        _playerAnimations = GetComponent<PlayerAnimations>();
 
         _health.OnDamage += DamageBehavior;
         _health.OnDeath += DeathBehavior;
@@ -49,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        _glide.SetMoveInput(value.Get<Vector2>());
+        _playerMovement.SetMoveInput(value.Get<Vector2>());
     }
 
     //placeholder method
@@ -94,5 +97,11 @@ public class PlayerController : MonoBehaviour
     {
         GetComponentInChildren<Shatterer>(true).gameObject.SetActive(true);
         OnPlayerDeath?.Invoke();
+    }
+
+    public void OnTestKey()
+    {
+        Debug.Log("Test key hit");
+        _playerAnimations.Spin();
     }
 }

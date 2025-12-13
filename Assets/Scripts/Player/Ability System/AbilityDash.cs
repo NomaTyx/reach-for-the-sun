@@ -8,6 +8,7 @@ public class AbilityDash : Ability
     private CapsuleCollider _dashCollider;
     private SphereCollider _bounceCollider;
     private Transform _cameraTransform;
+    private PlayerMovement _playerMovement;
 
     private bool _isDashing;
 
@@ -27,6 +28,7 @@ public class AbilityDash : Ability
         _dashCollider = _player.GetComponent<CapsuleCollider>();
         _bounceCollider = _player.GetComponent<SphereCollider>();
         _cameraTransform = Camera.main.transform;
+        _playerMovement = _player.GetComponent<PlayerMovement>();
     }
 
     public override void Effect(bool doCooldown)
@@ -39,7 +41,7 @@ public class AbilityDash : Ability
     {
         IsActive = true;
         Vector3 playerVelocity = _rb.linearVelocity;
-        Vector3 newDirection = _cameraTransform.forward;
+        Vector3 dashDirection = _cameraTransform.forward;
         _rb.linearVelocity = Vector3.zero;
         float dashStartTime = Time.time;
 
@@ -48,11 +50,14 @@ public class AbilityDash : Ability
 
         _isDashing = true;
 
-        _player.GetComponent<PlayerMovement>().SetGravity(false);
+        _playerMovement.SetGravity(false);
+        _playerMovement.SetTurnPlayer(false);
+
+        _player.transform.LookAt(transform.position + dashDirection);
 
         while (_isDashing)
         {
-            _rb.linearVelocity = newDirection * _dashForce;
+            _rb.linearVelocity = dashDirection * _dashForce;
 
             if (Time.time >= dashStartTime + AbilityEffectDuration)
             {
@@ -92,6 +97,7 @@ public class AbilityDash : Ability
         _isDashing = false;
         _dashCollider.enabled = false;
         _bounceCollider.enabled = true;
-        _player.GetComponent<PlayerMovement>().SetGravity(true);
+        _playerMovement.SetGravity(true);
+        _playerMovement.SetTurnPlayer(true);
     }
 }

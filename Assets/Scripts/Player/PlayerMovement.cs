@@ -16,14 +16,15 @@ public class PlayerMovement : MonoBehaviour
     private float _glideSpeed = 5f;
 
     [Header("Player Turning")]
-    [SerializeField] private bool _turnPlayer = true;
     [SerializeField] private float _yWeight = 3;
 
     private bool _doGravity = true;
     private bool _doGliding = true;
     public bool DoGravity => _doGravity;
     public bool DoMovement => _doGliding;
-    
+
+    private bool _turnPlayer = true;
+
     private Vector2 _movementDirection;
     private Rigidbody _rb;
     private Camera _camera;
@@ -70,7 +71,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (_turnPlayer)
         {
-            transform.LookAt(transform.position + new Vector3(_rb.linearVelocity.x, _rb.linearVelocity.y * _yWeight, _rb.linearVelocity.z));
+            var zRot = transform.rotation.z;
+            Vector3 lookDirection = transform.position + new Vector3(_rb.linearVelocity.x, _rb.linearVelocity.y * _yWeight, _rb.linearVelocity.z);
+            transform.LookAt(lookDirection);
         }
     }
 
@@ -78,8 +81,14 @@ public class PlayerMovement : MonoBehaviour
     {
         _doGravity = gravityState;
     }
+    
     public void SetGliding(bool glideState)
     {
         _doGliding = glideState;
+    }
+
+    public void SetTurnPlayer(bool turnPlayer)
+    {
+        _turnPlayer = turnPlayer;
     }
 }
