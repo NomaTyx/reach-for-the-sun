@@ -50,7 +50,7 @@ public class Ability : MonoBehaviour
     /// <summary>
     /// base effect method including event invocation and cooldown routine. to be called after the ability is concluded.
     /// </summary>
-    /// <param name="doCooldown"></param>
+    /// <param name="doCooldown">Whether or not this ability has a cooldown</param>
     public virtual void Effect(bool doCooldown)
     {
         _player.GetComponent<PlayerMovement>().SetGliding(true);

@@ -41,6 +41,7 @@ public class HomingProjectile : MonoBehaviour
 
     private void Move()
     {
+        if(_target == null) Destroy(gameObject);
         Vector3 targetDirection = _target.transform.position - transform.position;
         targetDirection.Normalize();
         Vector3 target = Vector3.RotateTowards(transform.forward, targetDirection, Time.fixedDeltaTime * 0.3f, 0);

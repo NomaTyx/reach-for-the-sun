@@ -17,6 +17,8 @@ public class PlayerAnimations : MonoBehaviour
     private void OnDestroy()
     {
         _playerAbilities.Abilities["dash"].AbilityActivated -= Spin;
+        _playerAbilities.Abilities["dash"].AbilityFinished -= StopSpinning;
+        _playerAbilities.Abilities["dash"].AbilityCanceled -= StopSpinning;
         _playerAbilities.AbilitiesInitiated -= OnAbilitiesInitiated;
     }
 

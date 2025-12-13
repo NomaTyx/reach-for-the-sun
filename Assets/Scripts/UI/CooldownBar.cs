@@ -38,6 +38,5 @@ public class CooldownBar : MonoBehaviour
             _fillBar.fillAmount = 1 - (Time.time - _cooldownStartTime) / _cooldownDuration;
             yield return null;
         }
-        yield return null;
     }
 }
