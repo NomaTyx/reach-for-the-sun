@@ -102,6 +102,6 @@ public class PlayerController : MonoBehaviour
     public void OnTestKey()
     {
         Debug.Log("Test key hit");
-        _playerAnimations.Spin();
+        _playerAnimations.StartSpinning();
     }
 }

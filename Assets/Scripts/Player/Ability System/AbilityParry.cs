@@ -7,6 +7,7 @@ public class AbilityParry : Ability
 
     private Rigidbody _rb;
 
+    //called when abilities are loaded onto the player
     public override void Init()
     {
         base.Init();
@@ -18,7 +19,6 @@ public class AbilityParry : Ability
         _rb = GameManager.Instance.Player.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     public override void Effect(bool doCooldown)
     {
         //check only the projectile layer

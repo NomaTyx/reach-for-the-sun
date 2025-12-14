@@ -15,11 +15,25 @@ public class Ability : MonoBehaviour
     protected GameObject _player;
 
     public event Action AbilityActivated;
+
+    /// <summary>
+    /// Invoked when an ability has been successfully activated. <br/><br/>
+    /// If an ability is interrupted early, that still counts as the ability being finished.
+    /// </summary>
     public event Action AbilityFinished;
-    public event Action AbilityCanceled; //for example if you bounce while no enemies are in range. this may be a bandaid solution, we'll see
+
+    /// <summary>
+    /// Invoked when an ability is canceled. <br/><br/>
+    /// Canceling an ability refers to stopping the ability entirely without incurring a cooldown. It's as if the ability never happened.
+    /// If a game mechanic causes an ability to be interrupted, that ability is not canceled.
+    /// </summary>
+    public event Action AbilityCanceled; 
 
     protected float _timeWhenAbilityNextUsable = 0;
 
+    /// <summary>
+    /// Called when abilities are loaded onto the player
+    /// </summary>
     public virtual void Init()
     {
         _player = GameManager.Instance.Player.gameObject;

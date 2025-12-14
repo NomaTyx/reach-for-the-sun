@@ -124,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b5d37876f3fe14b8196c2423123aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turnPlayer: 1
   _yWeight: 3
 --- !u!114 &385529484325572172
 MonoBehaviour:
@@ -226,7 +225,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4802243369597645984}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 3.32, z: 0}
