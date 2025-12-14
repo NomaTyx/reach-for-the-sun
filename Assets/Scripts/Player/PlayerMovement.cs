@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private float _terminalDirectionalVelocity; //unused so far, just adding for posterity
     private float _terminalDownwardsVelocity = -75f;
 
-    private float _glideSpeed = 5f;
+    [SerializeField] private float _glideSpeed = 5f;
+    [SerializeField] private float _glideAccel = 1f;
 
     [Header("Player Turning")]
     [SerializeField] private float _yWeight = 3;
@@ -27,13 +28,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 _movementDirection;
     private Rigidbody _rb;
-    private Camera _camera;
 
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _camera = GameManager.Instance.Camera;
     }
 
     public void SetMoveInput(Vector2 moveInput)
