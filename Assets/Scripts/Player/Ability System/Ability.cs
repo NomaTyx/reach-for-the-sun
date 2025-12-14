@@ -40,9 +40,10 @@ public class Ability : MonoBehaviour
     }
 
     /// <summary>
-    /// attempts to use the ability. checks cooldown and if there's an ability currently active
+    /// Attempts to use the ability. Checks cooldown and if there's an ability currently active. <br/><br/>
+    /// Some abilities have preconditions required. Those functions will override TryUse, check their own preconditions, and call the base TryUse afterwards.
     /// </summary>
-    public void TryUse()
+    public virtual void TryUse()
     {
         if (_timeWhenAbilityNextUsable > Time.time) return;
 

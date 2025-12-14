@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Net.Sockets;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AbilityParry : Ability
@@ -7,7 +10,8 @@ public class AbilityParry : Ability
 
     private Rigidbody _rb;
 
-    //called when abilities are loaded onto the player
+    private List<HomingProjectile> _projectilesList;
+
     public override void Init()
     {
         base.Init();
@@ -19,30 +23,37 @@ public class AbilityParry : Ability
         _rb = GameManager.Instance.Player.GetComponent<Rigidbody>();
     }
 
-    public override void Effect(bool doCooldown)
+    public override void TryUse()
     {
         //check only the projectile layer
         Collider[] colliders = Physics.OverlapSphere(transform.position, _parryRange);
-
-        int numberOfRockets = 0;
+        _projectilesList = new List<HomingProjectile>();
 
         foreach (Collider c in colliders)
         {
-            c.TryGetComponent<HomingProjectile>(out HomingProjectile rocket);
+            c.TryGetComponent(out HomingProjectile rocket);
 
             if (rocket != null)
             {
-                numberOfRockets++;
-                rocket.ParryProjectile();
+                _projectilesList.Add(rocket);
+                
             }
         }
 
-        if (numberOfRockets != 0)
+        //parry should not be considered activated if there are no projectiles in range
+        if (_projectilesList.Count > 0)
         {
-            base.Effect(doCooldown);
-            //propel player per thing parried.
-            return;
+            base.TryUse();
         }
-        CancelAbility();
+    }
+
+    public override void Effect(bool doCooldown)
+    {
+        base.Effect(doCooldown);
+        //propel player per thing parried.
+        foreach (HomingProjectile rocket in _projectilesList)
+        {
+            rocket.ParryProjectile();
+        }
     }
 }

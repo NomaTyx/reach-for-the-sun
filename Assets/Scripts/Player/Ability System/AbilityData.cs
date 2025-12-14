@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-/* UNUSED SCRIPT, JUST KEEPING FOR REFERENCE'S SAKE */
+/// <summary>
+/// UNUSED SCRIPT, JUST KEEPING FOR REFERENCE'S SAKE
+/// </summary>
 
 [CreateAssetMenu(fileName = "Abilities", menuName = "Available Abilities")]
 public class AbilityData : ScriptableObject

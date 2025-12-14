@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityBounce : Ability
@@ -10,6 +11,8 @@ public class AbilityBounce : Ability
 
     private SphereCollider _bounceCollider;
     private Rigidbody _rb;
+
+    private List<Health> _bouncedEnemies;
 
     public override void Init()
     {
@@ -24,29 +27,34 @@ public class AbilityBounce : Ability
         _bounceCollider.radius = _bounceRange;
     }
 
+    public override void TryUse()
+    {
+        _bouncedEnemies = new List<Health>();
+        //TODO: make this only check the enemy layer
+        foreach (Collider c in Physics.OverlapSphere(transform.position, _bounceCollider.radius))
+        {
+            Health hitHealth = c.GetComponent<Health>();
+            if (hitHealth == null) continue;
+            if (hitHealth.gameObject == _player) continue;
+
+            //currently unused variable that tracks how many enemies are being bounced off of.
+            _bouncedEnemies.Add(hitHealth);
+        }
+
+        if (_bouncedEnemies.Count > 0)
+        {
+            base.TryUse();
+        }
+    }
+
     /// <summary>
     /// look for every enemy within bouncing range and deal damage to it. also propel with additional force per enemy
     /// </summary>
     public override void Effect(bool doCooldown) 
     {
-        float numOfEnemies = 0;
-
-        //TODO: make this only check the enemy layer
-        foreach (Collider c in Physics.OverlapSphere(transform.position, 10))
+        foreach (Health hitHealth in _bouncedEnemies)
         {
-            Health hitHealth = c.GetComponent<Health>();
-            if (hitHealth == null) continue;
-            if (hitHealth.gameObject == _player) continue;
-            hitHealth.Damage(new DamageInfo(1, this.gameObject, hitHealth.gameObject));
-
-            //currently unused variable that tracks how many enemies are being bounced off of.
-            numOfEnemies++;
-        }
-
-        if (numOfEnemies == 0)
-        {
-            CancelAbility();
-            return;
+            hitHealth.Damage(new DamageInfo(1, gameObject, hitHealth.gameObject));
         }
 
         //later on i will factor in the player's x and y velocity
@@ -54,7 +62,7 @@ public class AbilityBounce : Ability
         _rb.linearVelocity = Vector3.zero;
 
         //add more complex logic potentially
-        _rb.AddForce(Vector3.up * (_bounceForce + numOfEnemies), ForceMode.Impulse);
+        _rb.AddForce(Vector3.up * (_bounceForce + _bouncedEnemies.Count), ForceMode.Impulse);
 
         base.Effect(doCooldown);
     }

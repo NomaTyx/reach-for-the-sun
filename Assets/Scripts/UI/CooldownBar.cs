@@ -20,6 +20,7 @@ public class CooldownBar : MonoBehaviour
 
     public void ShowIfAbilityActive()
     {
+        Debug.Log("ability activated!");
         _activityIcon.enabled = !_activityIcon.enabled;
     }
 
