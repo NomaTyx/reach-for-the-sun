@@ -53,6 +53,12 @@ public class AbilityDash : Ability
         _playerMovement.SetGravity(false);
         _playerMovement.SetTurnPlayer(false);
 
+        /*there was a bug where the player would dash in the correct direction but would face downwards.
+         I'm pretty sure it was caused by PlayerMovement rotating the player *after* LookAt is called from here
+        but *before* this method set the player's velocity. Waiting two frames seems to have fixed it. */
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+
         _player.transform.LookAt(transform.position + dashDirection);
 
         while (_isDashing)
