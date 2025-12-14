@@ -17,6 +17,7 @@ public class AbilityDash : Ability
     private float _dashTime = 0.5f;
     private float _dashCooldown = 1f;
     private float _dashHitStopDuration = 0.25f;
+    private float _dashHitboxRadius = 5f;
     public override void Init()
     {
         base.Init();
@@ -29,6 +30,8 @@ public class AbilityDash : Ability
         _bounceCollider = _player.GetComponent<SphereCollider>();
         _cameraTransform = Camera.main.transform;
         _playerMovement = _player.GetComponent<PlayerMovement>();
+
+        _dashCollider.radius = _dashHitboxRadius;
     }
 
     public override void Effect(bool doCooldown)
@@ -52,6 +55,7 @@ public class AbilityDash : Ability
 
         _playerMovement.SetGravity(false);
         _playerMovement.SetTurnPlayer(false);
+        _playerMovement.SetMovement(false);
 
         /*there was a bug where the player would dash in the correct direction but would face downwards.
          I'm pretty sure it was caused by PlayerMovement rotating the player *after* LookAt is called from here
@@ -73,7 +77,9 @@ public class AbilityDash : Ability
             yield return null;
         }
 
-        _rb.linearVelocity = new Vector3(playerVelocity.x, 0, playerVelocity.z);
+
+        float playerMagnitude = new Vector3(playerVelocity.x, 0, playerVelocity.z).magnitude;
+        _rb.linearVelocity = Camera.main.transform.forward * playerMagnitude;
 
         IsActive = false;
         base.Effect(doCooldown);
@@ -105,5 +111,6 @@ public class AbilityDash : Ability
         _bounceCollider.enabled = true;
         _playerMovement.SetGravity(true);
         _playerMovement.SetTurnPlayer(true);
+        _playerMovement.SetMovement(true);
     }
 }

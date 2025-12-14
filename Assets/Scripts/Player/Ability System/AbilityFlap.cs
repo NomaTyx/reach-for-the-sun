@@ -7,6 +7,7 @@ public class AbilityFlap : Ability
     private float _flapCooldown = 5f;
     
     private Rigidbody _rb;
+    private PlayerMovement _playerMovement;
 
     public override void Init()
     {
@@ -16,12 +17,13 @@ public class AbilityFlap : Ability
         AbilityEffectDuration = 0;
 
         _rb = _player.GetComponent<Rigidbody>();
+        _playerMovement = _player.GetComponent<PlayerMovement>();
     }
 
     public override void Effect(bool doCooldown)
     {
-        _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0, _rb.linearVelocity.z);
-        _rb.AddForce(Vector3.up * _flapForce, ForceMode.Impulse);
+        _playerMovement.SetPlayerVelocity(new Vector3(_rb.linearVelocity.x, 0, _rb.linearVelocity.z));
+        _playerMovement.AddForceToPlayer(Vector3.up * _flapForce, ForceMode.Impulse);
         base.Effect(doCooldown);
     }
 }
