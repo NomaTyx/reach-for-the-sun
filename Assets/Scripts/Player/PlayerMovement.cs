@@ -71,7 +71,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (_turnPlayer)
         {
-            var zRot = transform.rotation.z;
             Vector3 lookDirection = transform.position + new Vector3(_rb.linearVelocity.x, _rb.linearVelocity.y * _yWeight, _rb.linearVelocity.z);
             transform.LookAt(lookDirection);
         }
