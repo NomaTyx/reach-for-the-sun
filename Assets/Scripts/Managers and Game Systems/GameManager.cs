@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
 
     public GameStateBase State;
     public PlayerController Player;
-    public Camera Camera;
 
     //subscribe to these events in Start
     private void Awake()
@@ -28,6 +27,5 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(this);
     }
 }

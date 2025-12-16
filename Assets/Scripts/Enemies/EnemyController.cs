@@ -59,6 +59,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(_target.transform);
+        if (_target != null)
+            transform.LookAt(_target.transform);
     }
 }

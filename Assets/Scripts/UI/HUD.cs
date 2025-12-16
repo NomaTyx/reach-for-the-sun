@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HUD : MonoBehaviour
 {
-    protected PlayerController player;
+    protected PlayerController _player;
     protected AbilityManager _playerAbilities;
 
     [SerializeField] private GameObject AbilityIconTemplate;
@@ -14,8 +14,8 @@ public class HUD : MonoBehaviour
 
     void Start()
     {
-        player = GameManager.Instance.Player;
-        _playerAbilities = player.gameObject.GetComponent<AbilityManager>();
+        _player = GameManager.Instance.Player;
+        _playerAbilities = _player.gameObject.GetComponent<AbilityManager>();
 
         _playerAbilities.AbilitiesInitiated += OnAbilitiesInitiated;
     }

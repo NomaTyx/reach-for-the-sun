@@ -11,6 +11,7 @@ public class AbilityBounce : Ability
 
     private SphereCollider _bounceCollider;
     private Rigidbody _rb;
+    private PlayerMovement _playerMovement;
 
     private List<Health> _bouncedEnemies;
 
@@ -24,6 +25,8 @@ public class AbilityBounce : Ability
 
         _rb = _player.GetComponent<Rigidbody>();
         _bounceCollider = _player.GetComponent<SphereCollider>();
+        _playerMovement = _player.GetComponent<PlayerMovement>();
+
         _bounceCollider.radius = _bounceRange;
     }
 
@@ -62,7 +65,8 @@ public class AbilityBounce : Ability
         _rb.linearVelocity = Vector3.zero;
 
         //add more complex logic potentially
-        _rb.AddForce(Vector3.up * (_bounceForce + _bouncedEnemies.Count), ForceMode.Impulse);
+        _playerMovement.SetPlayerVelocity(new Vector3(_rb.linearVelocity.x, 0, _rb.linearVelocity.z));
+        _playerMovement.AddForceToPlayer(Vector3.up * (_bounceForce + _bouncedEnemies.Count), ForceMode.Impulse);
 
         base.Effect(doCooldown);
     }

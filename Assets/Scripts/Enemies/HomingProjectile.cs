@@ -41,7 +41,6 @@ public class HomingProjectile : MonoBehaviour
 
     private void Move()
     {
-        if(_target == null) Destroy(gameObject);
         Vector3 targetDirection = _target.transform.position - transform.position;
         targetDirection.Normalize();
         Vector3 target = Vector3.RotateTowards(transform.forward, targetDirection, Time.fixedDeltaTime * 0.3f, 0);
@@ -71,7 +70,14 @@ public class HomingProjectile : MonoBehaviour
 
     private IEnumerator ParriedState()
     {
-        _target = _damageInfo.Instigator.gameObject;
+        if (_damageInfo.Instigator.gameObject != null)
+        {
+            _target = _damageInfo.Instigator.gameObject;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         transform.LookAt(_target.transform.position);
         _damageInfo = new DamageInfo(_damageInfo.Amount, _damageInfo.Instigator, _damageInfo.Instigator);
 
