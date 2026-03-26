@@ -52,8 +52,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if(_gravityScaleFactor != _glideGravityScaleFactor) 
             {
-                float targetYVelocity = _rb.linearVelocity.y * -Mathf.Clamp(Camera.main.transform.forward.y, -1, 0);
-                _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, targetYVelocity, _rb.linearVelocity.z);
+                _verticalVelocityMagnitude = _rb.linearVelocity.y * -Mathf.Clamp(Camera.main.transform.forward.y, -1, 0);
                 _gravityScaleFactor = _glideGravityScaleFactor;
             }
         }
@@ -78,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
             _gravityScaleFactor = _glideGravityScaleFactor * 10 * Math.Abs(Mathf.Clamp(Camera.main.transform.forward.y, -1, -0.15f));
         }
 
-        // > because downards velocity is negative
+        // '>' because downards velocity is negative
         if (_doGravity && _rb.linearVelocity.y > _terminalDownwardsVelocity)
         {
             Vector3 gravity = _defaultGravity * _gravityScaleFactor * Time.deltaTime * Vector3.up;

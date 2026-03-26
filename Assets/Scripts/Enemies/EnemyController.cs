@@ -27,6 +27,7 @@ public class EnemyController : MonoBehaviour
     private void OnDestroy()
     {
         _health.OnDamage -= DamageBehavior;
+        _health.OnDeath -= DeathBehavior;
     }
 
     /// <summary>
