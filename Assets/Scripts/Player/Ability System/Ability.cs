@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
-    public string AbilityName;
-    public float AbilityCooldownDuration;
-    public float AbilityEffectDuration;
+    public string AbilityName { get; protected set; }
+    public float AbilityCooldownDuration { get; protected set; }
+    public float AbilityEffectDuration { get; protected set; }
 
-    //used to check if an ability is active.
-    public bool IsActive = false;
+    /// <summary>
+    /// used to check if an ability is currently in-use (some abilities happen instantly, others take a certain amount of time)
+    /// </summary>
+    public bool IsActive { get; protected set; } = false;
 
     protected GameObject _player;
 
@@ -41,13 +43,12 @@ public class Ability : MonoBehaviour
 
     /// <summary>
     /// Attempts to use the ability. Checks cooldown and if there's an ability currently active. <br/><br/>
-    /// Some abilities have preconditions required. Those functions will override TryUse, check their own preconditions, and call the base TryUse afterwards.
+    /// Some abilities have preconditions required. Those functions will override TryUse and check their own preconditions, but <em>must</em> call the base TryUse afterwards.
     /// </summary>
     public virtual void TryUse()
     {
         if (_timeWhenAbilityNextUsable > Time.time) return;
 
-        //check the player's list of abilities to see if one is active. can't interrupt an ability. 
         foreach (var a in _player.GetComponent<PlayerController>().Abilities)
         {
             if (a.Value.IsActive) return;
@@ -59,11 +60,11 @@ public class Ability : MonoBehaviour
         Effect(true);
     }
 
-    //doCooldown feels ugly to me but it's the cleanest way i can think of to do cooldowns only sometimes.
+    //doCooldown feels ugly to me but it's the cleanest way i can think of to sometimes not do cooldowns.
     //and i won't do cooldown if Effect is called by something else. Say there's an ability that lets you dash three times in a row, for example.
     //note to self: you can override as many times as you would like.
     /// <summary>
-    /// base effect method including event invocation and cooldown routine. to be called after the ability is concluded.
+    /// base effect method including event invocation and cooldown routine. <em>Must</em> be called after the ability is concluded.
     /// </summary>
     /// <param name="doCooldown">Whether or not this ability has a cooldown</param>
     public virtual void Effect(bool doCooldown)
@@ -73,12 +74,18 @@ public class Ability : MonoBehaviour
         if(!doCooldown) _timeWhenAbilityNextUsable -= AbilityCooldownDuration; //bit of a bandaid solution but i need to account for if the ability is used without cooldown
     }
 
+    /// <summary>
+    /// Method to be called if an effect (the player being teleported somewhere, for example) wants to override the function of an ability.
+    /// </summary>
     public void CancelAbility()
     {
         _player.GetComponent<PlayerMovement>().SetGliding(true);
         AbilityCanceled?.Invoke();
     }
 
+    /// <summary>
+    /// Replenishes the cooldown and makes the ability instantly usable again. Useful for a cooldown item, for example.
+    /// </summary>
     public void ResetCooldown()
     {
         _timeWhenAbilityNextUsable = Time.time;    

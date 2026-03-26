@@ -7,7 +7,7 @@ public class CooldownBar : MonoBehaviour
 {
     //i don't want to have to serialize this, but getcomponentinchildren gets the component from the parent as well, so this is just the best i can do.
     [SerializeField] private Image _fillBar;
-    [SerializeField] private Image _activityIcon; //i really don't have a good name for this sorry whoever is reading this lol (unless you're julia, fuck you)
+    [SerializeField] private Image _activityIcon; //i really don't have a good name for this sorry whoever is reading this lol
 
     private float _cooldownStartTime;
     private float _cooldownDuration;
